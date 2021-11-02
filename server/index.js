@@ -1,10 +1,10 @@
 require('dotenv/config');
 const express = require('express');
+const pg = require('pg');
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const uploadsMiddleware = require('./uploads-middleware');
 const ClientError = require('./client-error');
-const pg = require('pg');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -14,9 +14,7 @@ const db = new pg.Pool({
 });
 
 const app = express();
-
 app.use(staticMiddleware);
-
 const jsonMiddleware = express.json();
 app.use(jsonMiddleware);
 
@@ -29,7 +27,7 @@ app.post('/api/users/', (req, res) => {
   } = req.body;
   if (!username || !password || !avatarUrl || !email) {
     res.status(400).json({
-      error: 'userId postType, imageUrl and caption are required fields'
+      error: 'username, password, avatarUrl and email are required fields'
     });
     return;
   }
@@ -51,39 +49,6 @@ app.post('/api/users/', (req, res) => {
       });
     });
 });
-
-// app.post('/api/posts/', (req, res) => {
-//   const {
-//     userId,
-//     postType,
-//     imageUrl,
-//     caption,
-//     location
-//   } = req.body;
-//   if (!userId || !postType || !imageUrl || !caption || !location) {
-//     res.status(400).json({
-//       error: 'userId postType, imageUrl and location are required fields'
-//     });
-//     return;
-//   }
-//   const sql = `
-//     insert into "posts" ("userId", "postType", "imageUrl", "caption", "location")
-//     values ($1, $2, $3, $4, $5)
-//     returning *
-//   `;
-//   const params = [userId, postType, imageUrl, caption, location];
-//   db.query(sql, params)
-//     .then(result => {
-//       const [memory] = result.rows;
-//       res.status(201).json(memory);
-//     })
-//     .catch(err => {
-//       console.error(err);
-//       res.status(500).json({
-//         error: 'an unexpected error occurred'
-//       });
-//     });
-// });
 
 app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
   const {
@@ -117,8 +82,8 @@ app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
       });
     });
 });
-app.use(errorMiddleware);
 
+app.use(errorMiddleware);
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);

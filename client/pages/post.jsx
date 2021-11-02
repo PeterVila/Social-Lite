@@ -65,7 +65,6 @@ export default class App extends React.Component {
               <div className="image-upload row">
                     <input className="clickable-upload" required type="file" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg, .gif" onChange={this.handleChange}/>
                     <img className="image-preview" src={this.state.file}/>
-
               </div>
           </div>
           <div className="post-buttons row">

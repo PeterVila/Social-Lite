@@ -1,0 +1,92 @@
+:root {
+  --dark-color-a: #121d30;
+  --dark-color-b: #454e5c;
+  --light-blue: #2ec0f5;
+  --highlight: #3fcfc1;
+  --default: #fff;
+}
+
+body {
+  background-color: var(--dark-color-b);
+}
+
+.memory-form {
+  width: 90%;
+  height: 32rem;
+  margin-top: 1.25rem;
+}
+
+.clickable-upload {
+  /* opacity: 0%; lets the input become invisible and takes up the entire div
+  border: none;
+  border-radius: 3px;
+  width: 100%;
+  height: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+
+.image-preview {
+  width: 100%;
+  height: 21rem;
+  border-radius: 2rem;
+  object-fit: fill;
+  border: none;
+}
+
+.image-upload {
+  width: 100%;
+  margin-top: 1rem;
+  height: 21rem;
+  background-color: var(--default);
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.memory-button,
+.event-button,
+.form-submit button {
+  margin-top: 1rem;
+  width: 40%;
+  height: 2.5rem;
+  background-color: var(--highlight);
+  border-radius: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  font-size: 1rem;
+}
+
+.location-form,
+.caption-form {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.location-form h3,
+.caption-form h3 {
+  width: 100%;
+  text-align: center;
+  color: var(--highlight);
+  margin: 0.25rem 0;
+}
+
+.location-input {
+  width: 90%;
+  height: 1.5rem;
+}
+
+.caption-form textarea {
+  width: 90%;
+  height: 3.5rem;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgb(8 143 130);
+}

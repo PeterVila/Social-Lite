@@ -10,7 +10,7 @@ CREATE TABLE "public"."users" (
 	"userId" serial NOT NULL,
 	"username" TEXT NOT NULL UNIQUE,
 	"password" TEXT NOT NULL,
-	"createdAt" timestamptz NOT NULL default now(),
+	"createdAt" timestamptz(0) NOT NULL default now(),
 	"avatarUrl" TEXT,
 	"email" TEXT NOT NULL,
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
@@ -24,7 +24,7 @@ CREATE TABLE "public"."comments" (
 	"userId" serial NOT NULL,
 	"content" TEXT NOT NULL,
 	"postId" serial NOT NULL,
-	"createdAt" timestamptz NOT NULL default now()
+	"createdAt" timestamptz(0) NOT NULL default now()
 ) WITH (
   OIDS=FALSE
 );
@@ -37,8 +37,9 @@ CREATE TABLE "public"."posts" (
 	"postType" TEXT NOT NULL,
 	"imageUrl" TEXT NOT NULL,
 	"caption" TEXT,
+  "eventDate" timestamptz(0),
 	"location" TEXT NOT NULL,
-	"createdAt" timestamptz(6) not null default now(),
+	"createdAt" timestamptz(0) not null default now(),
 	CONSTRAINT "posts_pk" PRIMARY KEY ("postId")
 ) WITH (
   OIDS=FALSE
@@ -59,7 +60,7 @@ CREATE TABLE "public"."eventAttendees" (
 CREATE TABLE "public"."chatroom" (
 	"userId" serial NOT NULL,
 	"message" TEXT NOT NULL,
-	"createdAt" timestamptz NOT NULL default now(),
+	"createdAt" timestamptz(0) NOT NULL default now(),
 	"chatroomName" TEXT NOT NULL
 ) WITH (
   OIDS=FALSE

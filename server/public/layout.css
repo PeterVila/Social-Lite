@@ -8,6 +8,10 @@
   display: none !important;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .container {
   max-width: 575px;
   margin: 0 auto;

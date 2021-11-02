@@ -4,9 +4,9 @@ values ('petervila', 'monkey', 'test.jpg', 'pvj@email.com'),
        ('ohboi', 'pass', 'lol.jpg', 'ae@email.com');
 ;
 
-insert into "posts" ("userId", "postType", "imageUrl", "caption", "location")
-values (1, 'memory', 'pog.jpg', 'melon', 'your moms house'),
-       (3, 'event', 'img.jpg', 'hello', 'earth');
+insert into "posts" ("userId", "postType", "imageUrl","caption", "eventDate", "location")
+values (1, 'event', 'pog.jpg', 'melon', null, 'your moms house'),
+       (3, 'memory', 'img.jpg', null, '06-19-1998', 'earth');
 
 
 insert into "eventAttendees" ("userId", "postId")

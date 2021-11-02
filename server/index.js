@@ -18,7 +18,7 @@ app.use(staticMiddleware);
 const jsonMiddleware = express.json();
 app.use(jsonMiddleware);
 
-app.post('/api/users/', (req, res) => {
+app.post('/api/users/', (req, res, next) => {
   const {
     username,
     password,
@@ -43,16 +43,13 @@ app.post('/api/users/', (req, res) => {
       res.status(201).json(user);
     })
     .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: 'an unexpected error occurred'
-      });
+      next(err);
     });
 });
 
 app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
   const {
-    userId,
+    userId = 2,
     postType,
     caption,
     location
@@ -76,10 +73,7 @@ app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
       res.status(201).json(upload);
     })
     .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: 'An unexpected error occurred'
-      });
+      next(err);
     });
 });
 

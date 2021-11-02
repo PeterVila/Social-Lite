@@ -7,7 +7,6 @@ export default class App extends React.Component {
       caption: '',
       location: '',
       postType: 'memory',
-      userId: 1,
       file: null
     };
     this.fileInputRef = React.createRef();
@@ -38,7 +37,6 @@ export default class App extends React.Component {
     formData.append('caption', this.state.caption);
     formData.append('location', this.state.location);
     formData.append('postType', this.state.postType);
-    formData.append('userId', this.state.userId);
     formData.append('image', this.fileInputRef.current.files[0]);
     fetch('/api/posts', {
       method: 'POST',
@@ -48,7 +46,8 @@ export default class App extends React.Component {
       .then(() => {
         this.setState({
           caption: '',
-          location: ''
+          location: '',
+          file: null
         });
         this.fileInputRef.current.value = null;
       })
@@ -61,11 +60,9 @@ export default class App extends React.Component {
     return (
       <div className="container">
         <form className="memory-form" onSubmit={this.handleSubmit}>
-          <div className="row">
-              <div className="image-upload row">
-                    <input className="clickable-upload" required type="file" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg, .gif" onChange={this.handleChange}/>
-                    <img className="image-preview" src={this.state.file}/>
-              </div>
+          <div className="image-upload">
+                <input className="clickable-upload" required type="file" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg, .gif" onChange={this.handleChange}/>
+                <img className="image-preview" src={this.state.file}/>
           </div>
           <div className="post-buttons row">
               <button type="button" className="memory-button">Memory</button>

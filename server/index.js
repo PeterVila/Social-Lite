@@ -52,7 +52,8 @@ app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
     userId = 2,
     postType,
     caption,
-    location
+    location,
+    eventDate
   } = req.body;
   if (!userId || !postType || !location) {
     throw new ClientError(400, 'userId, postType, location are required fields');
@@ -62,11 +63,11 @@ app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
     throw new ClientError(400, 'imageUrl is a required field');
   }
   const sql = `
-    insert into "posts" ("userId", "postType", "imageUrl", "caption", "location")
-    values ($1, $2, $3, $4, $5)
+    insert into "posts" ("userId", "postType", "imageUrl", "caption", "location", "eventDate")
+    values ($1, $2, $3, $4, $5, $6)
     returning *
   `;
-  const params = [userId, postType, imageUrl, caption, location];
+  const params = [userId, postType, imageUrl, caption, location, eventDate];
   db.query(sql, params)
     .then(result => {
       const [upload] = result.rows;

@@ -76,22 +76,22 @@ export default class App extends React.Component {
 
   render() {
     const showEventDate = this.state.postType === 'event' ? 'date-form row' : 'date-form hidden';
-    const memoryClicked = this.state.postType === 'memory' ? 'memory-button clicked' : 'white-button';
-    const eventClicked = this.state.postType === 'event' ? 'event-button clicked' : 'white-button';
+    const memoryClicked = this.state.postType === 'memory' ? 'memory-button clicked' : 'memory-button white-button';
+    const eventClicked = this.state.postType === 'event' ? 'event-button clicked' : 'event-button white-button';
     return (
       <div className="container">
         <form className="memory-form" onSubmit={this.handleSubmit}>
           <div className="image-upload">
-                <input className="clickable-upload" required type="file" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg, .gif" onChange={this.handleChange}/>
+                <input className="absolute center-element" required type="file" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg, .gif" onChange={this.handleChange}/>
                 <img className="image-preview" src={this.state.file}/>
           </div>
           <div className="post-buttons row">
-              <button onClick={this.toggleMemory}type="button" className={memoryClicked}>Memory</button>
-              <button onClick={this.toggleEvent}type="button" className={eventClicked}>Event</button>
+              <button onClick={this.toggleMemory} type="button" className={memoryClicked}>Memory</button>
+              <button onClick={this.toggleEvent} type="button" className={eventClicked}>Event</button>
           </div>
           <div className={showEventDate}>
               <h3>When?</h3>
-              <input className="date-input text-center" type="datetime-local" required id="eventDate" name="eventDate" value={this.state.eventDate} onChange={this.handleEventChange}/>
+              <input className="date-input text-center" type="datetime-local" id="eventDate" name="eventDate" value={this.state.eventDate} onChange={this.handleEventChange}/>
           </div>
           <div className="location-form row">
               <h3>Location</h3>

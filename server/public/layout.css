@@ -8,8 +8,18 @@
   display: none !important;
 }
 
+.absolute {
+  position: absolute;
+}
+
 .text-center {
   text-align: center;
+}
+
+.center-element {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
@@ -55,37 +65,8 @@
   }
 
   .memory-form {
-    width: 90%;
+    padding: 0 5rem;
     height: 35rem;
     margin-top: 1.25rem;
-  }
-
-  .image-upload {
-    width: 70%;
-    margin-top: 1rem;
-    height: 15rem;
-    background-color: #f0f0f0;
-  }
-
-  .post-buttons {
-    width: 85%;
-  }
-
-  .memory-button,
-  .event-button {
-    margin-top: 1rem;
-    width: 30%;
-    height: 3rem;
-    background-color: var(--highlight);
-    border-radius: 1.5rem;
-  }
-
-  .location-input {
-    width: 60%;
-    height: 1.5rem;
-  }
-
-  .caption-form textarea {
-    width: 60%;
   }
 }

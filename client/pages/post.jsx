@@ -40,7 +40,9 @@ export default class App extends React.Component {
     formData.append('caption', this.state.caption);
     formData.append('location', this.state.location);
     formData.append('postType', this.state.postType);
-    formData.append('eventDate', this.state.eventDate);
+    if (this.state.eventDate !== '') {
+      formData.append('eventDate', this.state.eventDate);
+    }
     formData.append('image', this.fileInputRef.current.files[0]);
     fetch('/api/posts', {
       method: 'POST',
@@ -61,7 +63,10 @@ export default class App extends React.Component {
   }
 
   toggleMemory() {
-    this.setState({ postType: 'memory' });
+    this.setState({
+      postType: 'memory',
+      eventDate: ''
+    });
   }
 
   toggleEvent() {
@@ -75,9 +80,8 @@ export default class App extends React.Component {
   }
 
   render() {
-    const showEventDate = this.state.postType === 'event' ? 'date-form row' : 'date-form hidden';
-    const memoryClicked = this.state.postType === 'memory' ? 'memory-button clicked' : 'memory-button white-button';
     const eventClicked = this.state.postType === 'event' ? 'event-button clicked' : 'event-button white-button';
+    const memoryClicked = this.state.postType === 'memory' ? 'memory-button clicked' : 'memory-button white-button';
     return (
       <div className="container">
         <form className="memory-form" onSubmit={this.handleSubmit}>
@@ -89,10 +93,12 @@ export default class App extends React.Component {
               <button onClick={this.toggleMemory} type="button" className={memoryClicked}>Memory</button>
               <button onClick={this.toggleEvent} type="button" className={eventClicked}>Event</button>
           </div>
-          <div className={showEventDate}>
+          {this.state.postType === 'event'
+            ? <div className="date-form row">
               <h3>When?</h3>
-              <input className="date-input text-center" type="datetime-local" id="eventDate" name="eventDate" value={this.state.eventDate} onChange={this.handleEventChange}/>
+              <input className="date-input text-center" required type="datetime-local" id="eventDate" name="eventDate" value={this.state.eventDate} onChange={this.handleEventChange}/>
           </div>
+            : undefined}
           <div className="location-form row">
               <h3>Location</h3>
               <input className="location-input" type="text" required id="location" name="location" value={this.state.location} onChange={this.handleLocationChange}/>

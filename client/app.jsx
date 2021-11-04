@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from './pages/home';
 import Post from './pages/post';
-import AppDrawer from './components/nav-drawer';
+import Navigation from './components/nav-drawer';
 import FooterNav from './components/nav-footer';
 import { parseRoute } from './lib';
 
@@ -34,9 +34,9 @@ export default class App extends React.Component {
   render() {
     return (
     <>
-    <AppDrawer />
-    <FooterNav />
+    <Navigation />
     { this.renderPage() }
+    <FooterNav />
     </>
     );
   }

@@ -89,4 +89,8 @@
   .event-date {
     margin-top: 20rem;
   }
+
+  footer {
+    visibility: hidden;
+  }
 }

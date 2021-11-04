@@ -17,22 +17,14 @@ class AppDrawer extends React.Component {
 
   render() {
     return (
-          <footer>
-        <div className="row justify-center">
-            <div className="icon">
-                <i className="fas fa-home"></i> </div>
-            <div className="icon">
-                <i className="fas fa-user"></i>
-            </div>
-            <div className="post-icon">
-                <i className="fas fa-camera"></i>
-            </div>
-            <div className="icon">
-                <i className="fas fa-comments"></i> </div>
-            <div className="icon">
-                <i className="fas fa-video"></i>
-            </div>
+    <footer>
+      <div className="row justify-center">
+        <div className="icon">
+            <i className="fas fa-home"></i> </div>
+        <div className="post-icon">
+            <i className="fas fa-camera"></i>
         </div>
+      </div>
     </footer>
     );
   }

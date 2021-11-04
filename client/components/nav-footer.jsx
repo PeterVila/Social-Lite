@@ -19,9 +19,9 @@ class AppDrawer extends React.Component {
     return (
     <footer>
       <div className="row justify-center">
-        <div className="icon">
+        <div className="icon text-center">
             <i className="fas fa-home"></i> </div>
-        <div className="post-icon">
+        <div className="post-icon text-center">
             <i className="fas fa-camera"></i>
         </div>
       </div>

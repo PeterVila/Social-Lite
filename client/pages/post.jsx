@@ -1,4 +1,5 @@
 import React from 'react';
+import Resizer from 'react-image-file-resizer';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -16,12 +17,37 @@ export default class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCaptionChange = this.handleCaptionChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.toggleMemory = this.toggleMemory.bind(this);
     this.toggleEvent = this.toggleEvent.bind(this);
     this.handleEventChange = this.handleEventChange.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleEndTime = this.handleEndTime.bind(this);
+    this.fileChangedHandler = this.fileChangedHandler.bind(this);
+  }
+
+  fileChangedHandler(event) {
+    let fileInput = false;
+    if (event.target.files[0]) {
+      fileInput = true;
+    }
+    if (fileInput) {
+      Resizer.imageFileResizer(
+        event.target.files[0],
+        640,
+        640,
+        'JPEG',
+        100,
+        0,
+        uri => {
+          this.setState({
+            file: uri
+          });
+        },
+        'base64',
+        200,
+        200
+      );
+    }
   }
 
   componentDidMount() {
@@ -42,12 +68,6 @@ export default class App extends React.Component {
     this.setState({ postTitle: event.target.value });
   }
 
-  handleChange(event) {
-    this.setState({
-      file: URL.createObjectURL(event.target.files[0])
-    });
-  }
-
   handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData();
@@ -55,9 +75,11 @@ export default class App extends React.Component {
     formData.append('location', this.state.location);
     formData.append('postType', this.state.postType);
     formData.append('postTitle', this.state.postTitle);
-    if (this.state.eventDate !== '') {
-      formData.append('eventDate', this.state.eventDate);
-      formData.append('endTime', this.state.endTime);
+    if (this.state.postType === 'event') {
+      const timestampStart = new Date(this.state.eventDate).toISOString();
+      const timestampEnd = new Date(this.state.endTime).toISOString();
+      formData.append('eventDate', timestampStart);
+      formData.append('endTime', timestampEnd);
     }
     formData.append('image', this.fileInputRef.current.files[0]);
     fetch('/api/posts', {
@@ -81,7 +103,8 @@ export default class App extends React.Component {
   toggleMemory() {
     this.setState({
       postType: 'memory',
-      eventDate: ''
+      eventDate: '',
+      endTime: ''
     });
   }
 
@@ -105,8 +128,8 @@ export default class App extends React.Component {
     const eventClicked = this.state.postType === 'event' ? 'event-button clicked' : 'event-button white-button';
     const memoryClicked = this.state.postType === 'memory' ? 'memory-button clicked' : 'memory-button white-button';
     const isUploaded = !this.state.file
-      ? <input className="absolute center-element" required type="file" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg, .gif" onChange={this.handleChange}/>
-      : <input className="absolute center-element hidden" required type="file" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg, .gif" onChange={this.handleChange}/>;
+      ? <input className="absolute center-element" required type="file" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg" onChange={this.fileChangedHandler}/>
+      : <input className="absolute center-element after-upload" required type="file" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg" onChange={this.fileChangedHandler}/>;
     return (
       <div className="container">
         <form className="memory-form" onSubmit={this.handleSubmit}>
@@ -135,7 +158,7 @@ export default class App extends React.Component {
           </div>
           <div className="caption-form row">
               <h3>Caption</h3>
-              <textarea autoFocus id="location" name="location" value={this.state.caption} onChange={this.handleCaptionChange}/>
+              <textarea id="location" required name="location" value={this.state.caption} onChange={this.handleCaptionChange}/>
           </div>
           <div className="form-submit row">
               <button type="submit">Submit</button>

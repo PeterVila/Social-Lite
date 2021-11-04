@@ -91,13 +91,13 @@ export default class App extends React.Component {
 
   handleEventChange(event) {
     this.setState({
-      eventDate: event.target.value
+      eventDate: event.target.value.substr(0, 16)
     });
   }
 
   handleEndTime(event) {
     this.setState({
-      endTime: event.target.value
+      endTime: event.target.value.substr(0, 16)
     });
   }
 

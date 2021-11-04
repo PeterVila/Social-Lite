@@ -1,9 +1,9 @@
 import React from 'react';
 import Home from './pages/home';
 import Post from './pages/post';
-import {
-  parseRoute
-} from './lib';
+import AppDrawer from './components/nav-drawer';
+import FooterNav from './components/nav-footer';
+import { parseRoute } from './lib';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -22,23 +22,22 @@ export default class App extends React.Component {
   }
 
   renderPage() {
-    const {
-      route
-    } = this.state;
+    const { route } = this.state;
     if (route.path === '') {
-      return <Home / >;
+      return <Home />;
     }
     if (route.path === 'post') {
-      return <Post / >;
+      return <Post />;
     }
   }
 
   render() {
-    return (<
-      > {
-        this.renderPage()
-      } <
-      />
+    return (
+    <>
+    <AppDrawer />
+    <FooterNav />
+    { this.renderPage() }
+    </>
     );
   }
 }

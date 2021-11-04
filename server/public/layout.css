@@ -75,8 +75,18 @@
     border-radius: 3rem;
     background-color: var(--dark-color-a);
     position: relative;
-    margin-top: 2rem;
     margin-bottom: 2rem;
     box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 66%);
+  }
+
+  .event-image img {
+    height: 24rem;
+    width: 100%;
+    border-top-left-radius: 3rem;
+    border-top-right-radius: 3rem;
+  }
+
+  .event-date {
+    margin-top: 20rem;
   }
 }

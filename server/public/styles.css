@@ -37,6 +37,14 @@ body {
   align-items: center;
 }
 
+input[type="file"]::-webkit-file-upload-button {
+  width: 100%;
+  height: 5rem;
+  border-radius: 5rem;
+  border: none;
+  font-size: 1.25rem;
+}
+
 .memory-button,
 .event-button,
 .form-submit button {
@@ -70,6 +78,10 @@ body {
   padding: 0.5rem;
 }
 
+.date-input {
+  width: 35%;
+}
+
 .caption-form textarea {
   width: 90%;
   height: 3.5rem;
@@ -97,4 +109,97 @@ body {
   align-items: center;
   border: none;
   font-size: 1rem;
+}
+
+/* Events */
+
+.card {
+  width: 90%;
+  border-radius: 3rem;
+  background-color: var(--dark-color-a);
+  position: relative;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 66%);
+}
+
+.post {
+  padding: 0.25rem 1rem;
+}
+
+.event-image img {
+  height: 18rem;
+  width: 100%;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+}
+
+.event-date {
+  height: 7.2rem;
+  width: 7.2rem;
+  background-color: var(--highlight);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 14rem;
+  margin-right: 3%;
+  color: var(--default);
+  box-shadow: inset 2px 0 10px #000;
+}
+
+.card .row h1 {
+  padding: 0;
+  margin-bottom: 0;
+  margin-top: 1.25rem;
+  font-size: 2.5rem;
+}
+
+.card-title {
+  color: var(--default);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-title h2 {
+  margin: 0;
+  width: 100%;
+  padding: 0.5rem 1rem;
+}
+
+.card-title h3 {
+  padding-left: 0.25rem;
+}
+
+.card .row h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.card-title h4,
+.card-title h5 {
+  margin: 0;
+  padding: 0.25rem 1rem;
+  color: var(--highlight);
+  font-style: italic;
+}
+
+.extra-info,
+.event-caption {
+  padding: 1rem 1.5rem 1.25rem;
+  color: var(--default);
+}
+
+.event-time,
+.event-planning {
+  flex-basis: 50%;
+  color: var(--default);
+  border: 1px solid var(--default);
+  margin: 0;
+  align-self: center;
+  padding: 0.5rem;
+}
+
+.event-planning span {
+  color: var(--highlight);
 }

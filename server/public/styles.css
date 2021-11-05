@@ -2,7 +2,7 @@
 
 :root {
   --dark-color-a: #121d30;
-  --dark-color-b: #454e5c;
+  --dark-color-b: #566071;
   --light-blue: #2ec0f5;
   --highlight: #3fcfc1;
   --default: #fff;
@@ -124,11 +124,11 @@ input[type="file"]::-webkit-file-upload-button {
 /* Events */
 
 .card {
-  width: 90%;
+  width: 95%;
   border-radius: 3rem;
   background-color: var(--dark-color-a);
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 66%);
   z-index: -1;
 }
@@ -138,10 +138,15 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .event-image img {
-  height: 18rem;
+  height: 22rem;
   width: 100%;
   border-top-left-radius: 3rem;
   border-top-right-radius: 3rem;
+}
+
+.memory-image img {
+  height: 22rem;
+  width: 100%;
 }
 
 .event-date {
@@ -152,7 +157,7 @@ input[type="file"]::-webkit-file-upload-button {
   position: absolute;
   top: 0;
   right: 0;
-  margin-top: 14rem;
+  margin-top: 18rem;
   margin-right: 3%;
   color: var(--default);
   box-shadow: inset 2px 0 10px #000;
@@ -184,7 +189,7 @@ input[type="file"]::-webkit-file-upload-button {
 .card-title h2 {
   margin: 0;
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 1.5rem;
 }
 
 .card-title h3 {
@@ -196,10 +201,9 @@ input[type="file"]::-webkit-file-upload-button {
   font-size: 1.5rem;
 }
 
-.card-title h4,
-.card-title h5 {
+.card-title h4 {
   margin: 0;
-  padding: 0.25rem 1rem;
+  padding: 0.75rem 1.5rem 0.25rem;
   color: var(--highlight);
   font-style: italic;
 }
@@ -263,7 +267,7 @@ footer {
 .nav {
   background-color: var(--dark-color-a);
   box-shadow: 0 7px 20px 2px rgb(0 0 0 / 30%);
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .hamburger {
@@ -271,6 +275,10 @@ footer {
   color: var(--default);
   font-size: 2rem;
   z-index: 9000;
+}
+
+i {
+  color: var(--default);
 }
 
 i:hover {

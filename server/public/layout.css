@@ -80,14 +80,14 @@
   }
 
   .event-image img {
-    height: 24rem;
+    height: 30rem;
     width: 100%;
     border-top-left-radius: 3rem;
     border-top-right-radius: 3rem;
   }
 
   .event-date {
-    margin-top: 20rem;
+    margin-top: 26.5rem;
   }
 
   footer {

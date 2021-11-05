@@ -11,7 +11,8 @@ export default class App extends React.Component {
       file: null,
       eventDate: '',
       postTitle: '',
-      endTime: ''
+      endTime: '',
+      img: null
     };
     this.fileInputRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,6 +27,10 @@ export default class App extends React.Component {
   }
 
   fileChangedHandler(event) {
+    const img = URL.createObjectURL(event.target.files[0]);
+    this.setState({
+      img
+    });
     let fileInput = false;
     if (event.target.files[0]) {
       fileInput = true;
@@ -43,7 +48,7 @@ export default class App extends React.Component {
             file: uri
           });
         },
-        'base64',
+        'file',
         200,
         200
       );
@@ -81,7 +86,7 @@ export default class App extends React.Component {
       formData.append('eventDate', timestampStart);
       formData.append('endTime', timestampEnd);
     }
-    formData.append('image', this.fileInputRef.current.files[0]);
+    formData.append('image', this.state.file);
     fetch('/api/posts', {
       method: 'POST',
       body: formData
@@ -91,7 +96,11 @@ export default class App extends React.Component {
         this.setState({
           caption: '',
           location: '',
-          file: null
+          postType: 'memory',
+          file: null,
+          eventDate: '',
+          postTitle: '',
+          endTime: ''
         });
         this.fileInputRef.current.value = null;
       })
@@ -135,7 +144,7 @@ export default class App extends React.Component {
         <form className="memory-form" onSubmit={this.handleSubmit}>
           <div className="image-upload">
                 { isUploaded }
-                <img className="image-preview" src={this.state.file}/>
+                <img className="image-preview" src={this.state.img}/>
           </div>
           <div className="post-buttons row">
               <button onClick={this.toggleMemory} type="button" className={memoryClicked}>Memory</button>

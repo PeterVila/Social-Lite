@@ -55,14 +55,6 @@ function Post(props) {
             <div className="event-caption">
                 <p>{caption}</p>
             </div>
-            <div className='extra-info pop'>
-                <h2>More information</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, dignissimos. Quibusdam itaque
-                    commodi
-                    sapiente, veritatis dolores corporis deserunt illo nisi eveniet incidunt nostrum excepturi corrupti
-                    amet
-                    dolor aspernatur, mollitia eligendi.</p>
-            </div>
         </div>
       </div>
   );

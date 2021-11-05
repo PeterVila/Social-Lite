@@ -138,15 +138,17 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .event-image img {
-  height: 22rem;
+  height: 28rem;
   width: 100%;
   border-top-left-radius: 3rem;
   border-top-right-radius: 3rem;
+  object-fit: cover;
 }
 
 .memory-image img {
-  height: 22rem;
+  height: 28rem;
   width: 100%;
+  object-fit: cover;
 }
 
 .event-date {
@@ -157,7 +159,7 @@ input[type="file"]::-webkit-file-upload-button {
   position: absolute;
   top: 0;
   right: 0;
-  margin-top: 18rem;
+  margin-top: 24rem;
   margin-right: 3%;
   color: var(--default);
   box-shadow: inset 2px 0 10px #000;

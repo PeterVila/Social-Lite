@@ -2,7 +2,7 @@
 
 :root {
   --dark-color-a: #121d30;
-  --dark-color-b: #454e5c;
+  --dark-color-b: #566071;
   --light-blue: #2ec0f5;
   --highlight: #3fcfc1;
   --default: #fff;
@@ -11,10 +11,11 @@
 body {
   background-color: var(--dark-color-b);
   font-family: "PT Sans", sans-serif;
+  margin-bottom: 10rem;
 }
 
 .memory-form {
-  padding: 0 5rem;
+  padding: 0;
   height: 32rem;
   margin-top: 1.25rem;
 }
@@ -37,6 +38,19 @@ body {
   align-items: center;
 }
 
+.after-upload {
+  opacity: 30%;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  width: 100%;
+  height: 5rem;
+  border-radius: 5rem;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
 .memory-button,
 .event-button,
 .form-submit button {
@@ -50,6 +64,10 @@ body {
   align-items: center;
   font-size: 1rem;
   border: none;
+}
+
+.form-submit button {
+  margin-bottom: 10rem;
 }
 
 .location-form h3,
@@ -68,6 +86,10 @@ body {
   height: 2rem;
   border-radius: 0.5rem;
   padding: 0.5rem;
+}
+
+.date-input {
+  width: 35%;
 }
 
 .caption-form textarea {
@@ -97,4 +119,211 @@ body {
   align-items: center;
   border: none;
   font-size: 1rem;
+}
+
+/* Events */
+
+.card {
+  width: 95%;
+  border-radius: 3rem;
+  background-color: var(--dark-color-a);
+  position: relative;
+  margin-bottom: 3rem;
+  box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 66%);
+  z-index: -1;
+}
+
+.card:nth-last-child() {
+  margin-bottom: 5rem;
+}
+
+.event-image img {
+  height: 28rem;
+  width: 100%;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  object-fit: cover;
+}
+
+.memory-image img {
+  height: 28rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.event-date {
+  height: 7.2rem;
+  width: 7.2rem;
+  background-color: var(--highlight);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 24rem;
+  margin-right: 3%;
+  color: var(--default);
+  box-shadow: inset 2px 0 10px #000;
+}
+
+.nav-slider h3 {
+  padding: 2rem;
+}
+
+.nav-slider h1 {
+  padding: 2rem 2rem 1rem;
+  color: var(--default);
+  background-color: rgb(135 206 250 / 38.6%);
+}
+
+.card .row h1 {
+  padding: 0;
+  margin-bottom: 0;
+  margin-top: 1.25rem;
+  font-size: 2.5rem;
+}
+
+.card-title {
+  color: var(--default);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-title h2 {
+  margin: 0;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+}
+
+.card-title h3 {
+  padding-left: 0.25rem;
+}
+
+.card .row h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.card-title h4 {
+  margin: 0;
+  padding: 0.75rem 1.5rem 0.25rem;
+  color: var(--highlight);
+  font-style: italic;
+}
+
+.extra-info,
+.event-caption {
+  padding: 1rem 1.5rem 1.25rem;
+  color: var(--default);
+}
+
+.event-time,
+.event-planning {
+  flex-basis: 50%;
+  color: var(--default);
+  border: 1px solid var(--default);
+  margin: 0;
+  align-self: center;
+  padding: 0.5rem;
+}
+
+.event-planning span {
+  color: var(--highlight);
+}
+
+/* footer */
+
+footer {
+  position: fixed;
+  width: 100%;
+  height: 4rem;
+  bottom: 0;
+  background-color: var(--dark-color-a);
+  align-items: center;
+  padding-top: 0.25rem;
+  box-shadow: 0 -7px 20px 2px rgb(0 0 0 / 30%);
+  z-index: 50000;
+}
+
+.icon {
+  flex-basis: 19.5%;
+  color: var(--default);
+  font-size: 1.8rem;
+  align-self: center;
+  padding-bottom: 1.75rem;
+}
+
+.post-icon {
+  flex-basis: 20%;
+  color: var(--default);
+  font-size: 2.2rem;
+  position: relative;
+  bottom: 1.3rem;
+  background: rgb(28 39 59);
+  background: linear-gradient(90deg, rgb(28 39 59 / 100%) 50%, rgb(69 78 92 / 100%) 100%);
+  border: 5px solid var(--dark-color-a);
+  border-radius: 50%;
+  padding: 1rem;
+}
+
+/* Header navigation */
+.nav {
+  background-color: var(--dark-color-a);
+  box-shadow: 0 7px 20px 2px rgb(0 0 0 / 30%);
+  margin-bottom: 2rem;
+}
+
+.hamburger {
+  padding: 1rem 1.5rem;
+  color: var(--default);
+  font-size: 2rem;
+  z-index: 9000;
+}
+
+i {
+  color: var(--default);
+}
+
+i:hover {
+  color: var(--highlight);
+}
+
+/* Side Drawer */
+.nav-slider {
+  width: 15rem;
+  height: 100vh;
+  background-color: var(--dark-color-a);
+  position: fixed;
+  transition: 0.5s all;
+  z-index: 2;
+}
+
+.backdrop {
+  width: 100%;
+  position: fixed;
+  height: 100vh;
+  background-color: rgb(0 0 0 / 49.5%);
+  z-index: 1;
+}
+
+.show-nav {
+  transform: translateX(0);
+}
+
+.hide-nav {
+  transform: translateX(-15rem);
+}
+
+.nav-slider ul {
+  list-style-type: none;
+  padding-left: 2rem;
+  padding-inline-start: 0;
+}
+
+.nav-slider a {
+  color: var(--default);
+  text-decoration: none;
+}
+
+.nav-slider li:hover {
+  background-color: rgb(4 4 103 / 50%);
 }

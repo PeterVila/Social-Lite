@@ -69,4 +69,33 @@
     height: 35rem;
     margin-top: 1.25rem;
   }
+
+  .card {
+    width: 75%;
+    border-radius: 3rem;
+    background-color: var(--dark-color-a);
+    position: relative;
+    margin-bottom: 2rem;
+    box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 66%);
+  }
+
+  .event-image img {
+    height: 38rem;
+    width: 100%;
+    border-top-left-radius: 3rem;
+    border-top-right-radius: 3rem;
+    object-fit: cover;
+  }
+
+  .memory-image img {
+    object-fit: cover;
+  }
+
+  .event-date {
+    margin-top: 34rem;
+  }
+
+  footer {
+    visibility: hidden;
+  }
 }

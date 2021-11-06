@@ -1,20 +1,31 @@
 import React from 'react';
 import PostList from './post-list';
-
+import Modal from '../components/modal';
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clicked: false,
+      postId: false,
       posts: []
     };
-    this.openEvent = this.openEvent.bind(this);
+    this.addComment = this.addComment.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
 
-  openEvent() {
-    this.setState(prevState => ({
-      clicked: !prevState.clicked
-    }));
+  addComment(postId) {
+    for (let i = 0; i < this.state.posts.length; i++) {
+      if (this.state.posts[i].postId === postId) {
+        this.setState({
+          postId: postId
+        });
+      }
+    }
+  }
+
+  resetState() {
+    this.setState({
+      postId: false
+    });
   }
 
   componentDidMount() {
@@ -25,7 +36,10 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <PostList posts={this.state.posts} openEvent={this.openEvent} />
+      <>
+      {this.state.postId ? <Modal postId={this.state.postId} changeState={this.resetState}/> : null}
+      <PostList posts={this.state.posts} addComment={this.addComment} />
+      </>
     );
   }
 }

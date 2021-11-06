@@ -89,6 +89,7 @@
 
   .memory-image img {
     object-fit: cover;
+    height: 38rem;
   }
 
   .event-date {
@@ -97,5 +98,18 @@
 
   footer {
     visibility: hidden;
+  }
+
+  .add-comment {
+    position: relative;
+    bottom: 3rem;
+  }
+
+  .modal {
+    padding: 5rem;
+  }
+
+  .modal-text textarea {
+    width: 85%;
   }
 }

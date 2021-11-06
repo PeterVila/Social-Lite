@@ -47,6 +47,32 @@ app.post('/api/users/', (req, res, next) => {
     });
 });
 
+app.post('/api/comments/', (req, res, next) => {
+  const {
+    userId = 2,
+    content,
+    postId
+  } = req.body;
+  console.log(req.body);
+  if (!content || !postId) {
+    throw new ClientError(400, 'userId, postType, location, postTitle are required fields');
+  }
+  const sql = `
+    insert into "comments" ("userId", "content", "postId")
+    values ($1, $2, $3)
+    returning *
+  `;
+  const params = [userId, content, postId];
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      res.status(201).json(user);
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
 app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
   const {
     userId = 2,

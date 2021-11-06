@@ -99,6 +99,38 @@ input[type="file"]::-webkit-file-upload-button {
   padding: 0.5rem;
 }
 
+.modal button {
+  background-color: var(--highlight);
+  border-radius: 1.5rem;
+  margin-top: 1rem;
+  width: 40%;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  border: none;
+  color: white;
+  font-weight: bold;
+}
+
+.add-comment button {
+  border-radius: 10rem;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  border: none;
+  background-color: var(--highlight);
+  color: white;
+  font-weight: bold;
+  box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 33%);
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgb(8 143 130);
+  box-shadow: inset 1px 1px 18px rgb(65 65 65);
+}
+
 .memory-form button:hover {
   cursor: pointer;
   background-color: rgb(8 143 130);
@@ -334,17 +366,6 @@ i:hover {
   bottom: 4rem;
 }
 
-.add-comment button {
-  border-radius: 10rem;
-  padding: 0.5rem 1.25rem;
-  font-size: 1rem;
-  border: none;
-  background-color: var(--highlight);
-  color: white;
-  font-weight: bold;
-  box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 33%);
-}
-
 .add-comment button:hover {
   box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 33%);
 }
@@ -354,25 +375,10 @@ i:hover {
   width: 100%;
   height: 100%;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgb(0 0 0 / 80%);
   z-index: 1;
   top: 0;
   left: 0;
-}
-
-.modal button {
-  background-color: var(--highlight);
-  border-radius: 1.5rem;
-  margin-top: 1rem;
-  width: 40%;
-  height: 2.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1rem;
-  border: none;
-  color: white;
-  font-weight: bold;
 }
 
 .modal {
@@ -382,7 +388,7 @@ i:hover {
   margin: 15% auto;
   border-radius: 5rem;
   padding: 2.5rem;
-  box-shadow: inset 1px 1px 18px rgb(0, 0, 0);
+  box-shadow: inset 1px 1px 18px rgb(0 0 0);
   color: var(--default);
 }
 
@@ -396,8 +402,7 @@ i:hover {
   padding: 0.25rem;
 }
 
-button:hover {
-  cursor: pointer;
-  background-color: rgb(8 143 130);
-  box-shadow: inset 1px 1px 18px rgb(65, 65, 65);
+.caption {
+  color: rgb(160 146 70);
+  font-weight: bold;
 }

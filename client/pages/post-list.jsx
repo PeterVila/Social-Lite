@@ -5,7 +5,8 @@ class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clicked: false
+      clicked: false,
+      comments: this.props.comments
     };
     this.toggleEvent = this.toggleEvent.bind(this);
   }
@@ -24,6 +25,16 @@ class Post extends React.Component {
     const formatMonth = format(date, 'LLLL');
     const formatStartTime = format(endDate, 'hh:mmb');
     const formatEndTime = format(endDate, 'hh:mmb');
+    const messages = this.props.comments.map((comment, index) => {
+      const commentDate = new Date(comment.createdAt);
+      const formatComment = format(commentDate, "yyyy-MM-dd' At 'h:mmbbbb");
+      const match = comment.postId === postId
+        ? <p>{`${comment.userId} : ${comment.content} - (${formatComment})`}</p>
+        : null;
+      return (
+        <div key={index}>{match}</div>
+      );
+    });
     const eventDateElement = eventDate
       ? <div className="event-date">
         <div className="row justify-center">
@@ -68,7 +79,8 @@ class Post extends React.Component {
             { cardHeader }
             { eventTimeElement }
             <div className="event-caption">
-                <p>{caption}</p>
+                <p className="caption">{caption}</p>
+                    { messages }
             </div>
         </div>
         <div className="row add-comment"><button className="test" onClick={() => this.props.addComment(postId)}>Create a Comment</button>
@@ -87,6 +99,7 @@ export default function postList(props) {
           key={post.postId}
           post={post}
           addComment={props.addComment}
+          comments={props.comments}
         />
       );
     })}

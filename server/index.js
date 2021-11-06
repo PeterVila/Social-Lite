@@ -53,9 +53,8 @@ app.post('/api/comments/', (req, res, next) => {
     content,
     postId
   } = req.body;
-  console.log(req.body);
   if (!content || !postId) {
-    throw new ClientError(400, 'userId, postType, location, postTitle are required fields');
+    throw new ClientError(400, 'postId and content');
   }
   const sql = `
     insert into "comments" ("userId", "content", "postId")
@@ -110,6 +109,18 @@ app.get('/api/posts', (req, res, next) => {
   const sql = `
   select *
     from "posts"
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/comments', (req, res, next) => {
+  const sql = `
+  select *
+    from "comments"
   `;
   db.query(sql)
     .then(result => {

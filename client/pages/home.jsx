@@ -7,7 +7,8 @@ export default class Home extends React.Component {
     this.state = {
       postId: false,
       posts: [],
-      open: false
+      open: false,
+      addedComment: false
     };
     this.addComment = this.addComment.bind(this);
     this.resetState = this.resetState.bind(this);
@@ -22,7 +23,8 @@ export default class Home extends React.Component {
 
   resetState() {
     this.setState({
-      open: false
+      open: false,
+      addedComment: true
     });
   }
 
@@ -42,6 +44,20 @@ export default class Home extends React.Component {
         posts: data1,
         comments: data2
       }));
+  }
+
+  componentDidUpdate() {
+    if (this.state.addedComment) {
+      Promise.all([
+        fetch('/api/posts/'),
+        fetch('/api/comments/')
+      ])
+        .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
+        .then(([data1, data2]) => this.setState({
+          posts: data1,
+          comments: data2
+        }));
+    }
   }
 
   render() {

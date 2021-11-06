@@ -5,7 +5,8 @@ class Modal extends React.Component {
     super(props);
     this.state = {
       comment: '',
-      modal: true
+      modal: true,
+      postId: this.props.postId
     };
     this.commentChange = this.commentChange.bind(this);
     this.changeState = this.changeState.bind(this);
@@ -31,6 +32,9 @@ class Modal extends React.Component {
           comment: null,
           modal: false
         });
+      })
+      .then(() => {
+        this.props.changeState();
       })
       .catch(error => {
         console.error('Error:', error);

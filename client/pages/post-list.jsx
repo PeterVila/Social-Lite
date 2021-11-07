@@ -23,13 +23,13 @@ class Post extends React.Component {
     const endDate = new Date(endTime);
     const formatDay = format(date, 'do');
     const formatMonth = format(date, 'LLLL');
-    const formatStartTime = format(endDate, 'hh:mmb');
+    const formatStartTime = format(date, 'hh:mmb');
     const formatEndTime = format(endDate, 'hh:mmb');
     const messages = this.props.comments.map((comment, index) => {
       const commentDate = new Date(comment.createdAt);
       const formatComment = formatDistance(new Date(), new Date(commentDate));
       const match = comment.postId === postId
-        ? <div className="comments row justify-space "><p>{`${comment.userId} : ${comment.content}`}</p>
+        ? <div className="comments row justify-space"><p>{`${comment.userId} : ${comment.content}`}</p>
         <p className="time-ago">{formatComment}</p></div>
         : null;
       return (
@@ -52,7 +52,7 @@ class Post extends React.Component {
     const eventTimeElement = endTime
       ? <div className="row">
        <h4 className="event-time">{formatStartTime} - {formatEndTime}</h4>
-       <h4 className="event-planning"><span>7</span> Planning to Go</h4>
+       <h4 className="event-planning"><span>7 </span>Attendees</h4>
       </div>
       : null;
     const cardHeader = eventDate

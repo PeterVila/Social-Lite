@@ -51,6 +51,9 @@ export default class Home extends React.Component {
           posts: data1,
           comments: data2
         }));
+      this.setState({
+        addedComment: false
+      });
     }
   }
 

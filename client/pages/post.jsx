@@ -100,7 +100,8 @@ export default class App extends React.Component {
           file: null,
           eventDate: '',
           postTitle: '',
-          endTime: ''
+          endTime: '',
+          img: null
         });
         this.fileInputRef.current.value = null;
       })
@@ -139,12 +140,15 @@ export default class App extends React.Component {
     const isUploaded = !this.state.file
       ? <input className="absolute center-element" required type="file" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg" onChange={this.fileChangedHandler}/>
       : <input className="absolute center-element after-upload" required type="file" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg" onChange={this.fileChangedHandler}/>;
+    const imgPreview = this.state.img
+      ? <img className="image-preview" src={this.state.img}/>
+      : null;
     return (
       <div className="container">
         <form className="memory-form" onSubmit={this.handleSubmit}>
           <div className="image-upload">
                 { isUploaded }
-                <img className="image-preview" src={this.state.img}/>
+                { imgPreview }
           </div>
           <div className="post-buttons row">
               <button onClick={this.toggleMemory} type="button" className={memoryClicked}>Memory</button>

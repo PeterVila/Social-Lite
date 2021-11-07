@@ -24,7 +24,7 @@ body {
   width: 100%;
   height: 20rem;
   border-radius: 2rem;
-  object-fit: fill;
+  object-fit: cover;
   border: none;
 }
 
@@ -251,12 +251,19 @@ button:hover {
 
 .event-time,
 .event-planning {
-  flex-basis: 50%;
   color: var(--default);
   border: 1px solid var(--default);
   margin: 0;
   align-self: center;
   padding: 0.5rem;
+}
+
+.event-time {
+  flex-basis: 50%;
+}
+
+.event-planning {
+  flex-basis: 50%;
 }
 
 .event-planning span {

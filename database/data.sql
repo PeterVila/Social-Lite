@@ -5,7 +5,7 @@ values ('petervila', 'monkey', 'test.jpg', 'pvj@email.com'),
 ;
 
 insert into "posts" ("userId", "postType", "postTitle", "imageUrl", "caption", "eventDate", "endTime", "location")
-values (1, 'event', 'Kennifer' , '/images/kennifer.jpg', 'this is a caption', '2021-11-25T10:00:00Z', '2021-11-25T18:00:00Z', 'LearningFuze');
+values (1, 'event', 'Kennifer' , '/images/kennifer.jpg', NULL, '2021-11-25T10:00:00Z', '2021-11-25T18:00:00Z', 'LearningFuze');
 
 
 insert into "eventAttendees" ("userId", "postId")

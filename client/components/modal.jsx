@@ -70,7 +70,7 @@ class Modal extends React.Component {
             <textarea onChange={this.commentChange} type="text" name="name" id="name"/>
           </div>
           <div className="row justify-evenly">
-            <button type="button" onClick={this.props.changeState} id="cancel">Cancel</button>
+            <button type="button" onClick={this.props.closeModal} id="cancel">Cancel</button>
             <button type="submit">Submit</button>
           </div>
         </form>

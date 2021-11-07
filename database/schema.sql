@@ -21,6 +21,7 @@ CREATE TABLE "public"."users" (
 
 
 CREATE TABLE "public"."comments" (
+  "messageId" serial NOT NULL,
 	"userId" serial NOT NULL,
 	"content" TEXT NOT NULL,
 	"postId" serial NOT NULL,

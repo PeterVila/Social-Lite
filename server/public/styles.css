@@ -406,3 +406,13 @@ i:hover {
   color: rgb(160 146 70);
   font-weight: bold;
 }
+
+.time-ago {
+  font-size: 0.75rem;
+  color: rgba(90 177 176 / 45%);
+}
+
+.comments p {
+  display: inline;
+  margin: 0;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { format } from 'date-fns';
+import { format, formatDistance } from 'date-fns';
 
 class Post extends React.Component {
   constructor(props) {
@@ -27,14 +27,18 @@ class Post extends React.Component {
     const formatEndTime = format(endDate, 'hh:mmb');
     const messages = this.props.comments.map((comment, index) => {
       const commentDate = new Date(comment.createdAt);
-      const formatComment = format(commentDate, "yyyy-MM-dd' At 'h:mmbbbb");
+      const formatComment = formatDistance(new Date(), new Date(commentDate));
       const match = comment.postId === postId
-        ? <p>{`${comment.userId} : ${comment.content} - (${formatComment})`}</p>
+        ? <div className="comments row justify-space "><p>{`${comment.userId} : ${comment.content}`}</p>
+        <p className="time-ago">{formatComment}</p></div>
         : null;
       return (
         <div key={index}>{match}</div>
       );
     });
+    const memoryComment = !eventDate
+      ? <div className="row add-comment"><button onClick={() => this.props.addComment(postId)}>Add a Comment</button></div>
+      : null;
     const eventDateElement = eventDate
       ? <div className="event-date">
         <div className="row justify-center">
@@ -83,8 +87,7 @@ class Post extends React.Component {
                     { messages }
             </div>
         </div>
-        <div className="row add-comment"><button className="test" onClick={() => this.props.addComment(postId)}>Create a Comment</button>
-</div>
+        {memoryComment}
       </div>
     );
   }

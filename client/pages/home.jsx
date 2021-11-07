@@ -29,12 +29,6 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
-    // fetch('/api/posts/')
-    //   .then(response => response.json())
-    //   .then(posts => this.setState({ posts: posts }));
-    // fetch('/api/comments/')
-    //   .then(response => response.json())
-    //   .then(comments => this.setState({ comments: comments }));
     Promise.all([
       fetch('/api/posts/'),
       fetch('/api/comments/')

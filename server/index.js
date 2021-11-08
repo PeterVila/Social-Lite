@@ -47,6 +47,31 @@ app.post('/api/users/', (req, res, next) => {
     });
 });
 
+app.post('/api/comments/', (req, res, next) => {
+  const {
+    userId = 2,
+    content,
+    postId
+  } = req.body;
+  if (!content || !postId) {
+    throw new ClientError(400, 'postId and content');
+  }
+  const sql = `
+    insert into "comments" ("userId", "content", "postId")
+    values ($1, $2, $3)
+    returning *
+  `;
+  const params = [userId, content, postId];
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      res.status(201).json(user);
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
 app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
   const {
     userId = 2,
@@ -82,8 +107,24 @@ app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
 
 app.get('/api/posts', (req, res, next) => {
   const sql = `
+  SELECT "postId", "userId", "postTitle", "postType", "imageUrl", "caption", "eventDate", "endTime", "location", "posts"."createdAt",
+    JSON_AGG("comments".*) FILTER (WHERE "comments" is not null) as "comments"
+  FROM "posts"
+  left JOIN "comments" USING ("postId", "userId")
+  group by "postId"
+  order by "posts"."createdAt"
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/comments', (req, res, next) => {
+  const sql = `
   select *
-    from "posts"
+    from "comments"
   `;
   db.query(sql)
     .then(result => {

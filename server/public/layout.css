@@ -50,6 +50,14 @@
   justify-content: flex-start;
 }
 
+.nav-search {
+  display: none;
+}
+
+.search-icon {
+  display: none;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 900px;
@@ -89,6 +97,7 @@
 
   .memory-image img {
     object-fit: cover;
+    height: 38rem;
   }
 
   .event-date {
@@ -97,5 +106,41 @@
 
   footer {
     visibility: hidden;
+  }
+
+  .add-comment {
+    position: relative;
+    bottom: 3rem;
+  }
+
+  .modal {
+    padding: 5rem;
+  }
+
+  .modal-text textarea {
+    width: 85%;
+  }
+
+  .nav-search {
+    display: block;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    margin: 0;
+    height: 1.7rem;
+    border: 1px solid white;
+    width: 60%;
+    padding-left: 1rem;
+    color: rgb(52 52 52);
+  }
+
+  .search-icon {
+    margin: 0;
+    width: 2rem;
+    height: 1.7rem;
+    background-color: rgb(14 97 206);
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 0.4rem;
+    display: block;
   }
 }

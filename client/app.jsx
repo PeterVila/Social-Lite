@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './pages/home';
 import Post from './pages/post';
+
 import Navigation from './components/nav-drawer';
 import FooterNav from './components/nav-footer';
 import { parseRoute } from './lib';
@@ -28,6 +29,9 @@ export default class App extends React.Component {
     }
     if (route.path === 'post') {
       return <Post />;
+    }
+    if (route.path === 'home') {
+      return <Home />;
     }
   }
 

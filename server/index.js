@@ -107,8 +107,12 @@ app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
 
 app.get('/api/posts', (req, res, next) => {
   const sql = `
-  select *
-    from "posts"
+  SELECT "postId", "userId", "postTitle", "postType", "imageUrl", "caption", "eventDate", "endTime", "location", "posts"."createdAt",
+    JSON_AGG("comments".*) FILTER (WHERE "comments" is not null) as "comments"
+  FROM "posts"
+  left JOIN "comments" USING ("postId", "userId")
+  group by "postId"
+  order by "posts"."createdAt"
   `;
   db.query(sql)
     .then(result => {
@@ -129,26 +133,26 @@ app.get('/api/comments', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/comments/:commentId', (req, res, next) => {
-  const commentId = Number(req.params.commentId);
-  const params = [commentId];
-  if (!Number.isInteger(commentId) || commentId <= 0) {
+app.get('/api/posts/:postId', (req, res, next) => {
+  const postId = Number(req.params.postId);
+  const params = [postId];
+  if (!Number.isInteger(postId) || postId <= 0) {
     res.status(400).json({
-      error: '"commentId" must be a positive integer'
+      error: '"postId" must be a positive integer'
     });
     return;
   }
   const sql = `
     select *
-      from "comments"
-     where "messageId" = $1
+      from "posts"
+     where "postId" = $1
   `;
   db.query(sql, params)
     .then(result => {
       const post = result.rows[0];
       if (!post) {
         res.status(404).json({
-          error: `${commentId} not found`
+          error: `${postId} not found`
         });
       } else {
         res.json(post);

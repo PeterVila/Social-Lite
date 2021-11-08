@@ -19,26 +19,7 @@ class Modal extends React.Component {
       postId: this.props.postId,
       content: this.state.comment
     };
-    fetch('/api/comments', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-      .then(response => response.json())
-      .then(() => {
-        this.setState({
-          comment: null,
-          modal: false
-        });
-      })
-      .then(() => {
-        this.props.changeState();
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    this.props.changeState(obj);
   }
 
   commentChange() {

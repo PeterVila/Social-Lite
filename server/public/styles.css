@@ -289,12 +289,14 @@ footer {
   color: var(--default);
   font-size: 1.8rem;
   align-self: center;
+  text-align: center;
   padding-bottom: 1.75rem;
 }
 
 .post-icon {
   flex-basis: 20%;
   color: var(--default);
+  text-align: center;
   font-size: 2.2rem;
   position: relative;
   bottom: 1.3rem;
@@ -316,7 +318,7 @@ footer {
   padding: 1rem 1.5rem;
   color: var(--default);
   font-size: 2rem;
-  z-index: 9000;
+  z-index: 1;
 }
 
 i {
@@ -422,4 +424,29 @@ i:hover {
 .comments p {
   display: inline;
   margin: 0;
+}
+
+/* Nav bar continuation */
+
+.nav-header {
+  flex-basis: 60%;
+  justify-content: center;
+  color: var(--default);
+  align-self: center;
+}
+
+.profile-picture {
+  justify-content: end;
+  flex-basis: 20%;
+  align-self: center;
+  padding: 0 1rem;
+}
+
+.profile-picture img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin: 0;
+  border: 2px solid var(--dark-color-b);
+  object-fit: cover;
 }

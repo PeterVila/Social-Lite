@@ -22,8 +22,17 @@ class AppDrawer extends React.Component {
         <div className="icon text-center">
           <a href="#"><i className="fas fa-home"></i></a>
         </div>
+        <div className="icon text-center">
+          <a href="#profile">?</a>
+        </div>
         <div className="post-icon text-center">
           <a href="#post"><i className="fas fa-camera"></i></a>
+        </div>
+        <div className="icon text-center">
+          <a href="#chat">?</a>
+        </div>
+        <div className="icon text-center">
+          <a href="#profile">?</a>
         </div>
       </div>
     </footer>

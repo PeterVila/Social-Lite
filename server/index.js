@@ -133,34 +133,6 @@ app.get('/api/comments', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/posts/:postId', (req, res, next) => {
-  const postId = Number(req.params.postId);
-  const params = [postId];
-  if (!Number.isInteger(postId) || postId <= 0) {
-    res.status(400).json({
-      error: '"postId" must be a positive integer'
-    });
-    return;
-  }
-  const sql = `
-    select *
-      from "posts"
-     where "postId" = $1
-  `;
-  db.query(sql, params)
-    .then(result => {
-      const post = result.rows[0];
-      if (!post) {
-        res.status(404).json({
-          error: `${postId} not found`
-        });
-      } else {
-        res.json(post);
-      }
-    })
-    .catch(err => next(err));
-});
-
 app.use(errorMiddleware);
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console

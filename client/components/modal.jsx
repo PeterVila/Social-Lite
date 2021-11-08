@@ -19,7 +19,11 @@ class Modal extends React.Component {
       postId: this.props.postId,
       content: this.state.comment
     };
-    this.props.changeState(obj);
+    this.setState({
+      comment: null,
+      modal: false
+    });
+    this.props.addComment(obj);
   }
 
   commentChange() {

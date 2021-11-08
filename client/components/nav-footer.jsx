@@ -20,7 +20,7 @@ class AppDrawer extends React.Component {
     <footer>
       <div className="row justify-center">
         <div className="icon text-center">
-          <a href="#"><i className="fas fa-home"></i></a>
+          <a href="#home"><i className="fas fa-home"></i></a>
         </div>
         <div className="icon text-center">
           <a href="#profile">?</a>

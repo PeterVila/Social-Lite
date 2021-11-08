@@ -1,52 +1,42 @@
 import React from 'react';
 import { format, formatDistance } from 'date-fns';
+import Modal from '../components/modal';
 
 class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clicked: false,
       comments: this.props.post.comments,
-      commentUpload: this.props.addedCommentState,
-      newComment: this.props.newComment
+      isCommenting: this.props.open,
+      postId: this.props.post.postId
     };
-    this.toggleEvent = this.toggleEvent.bind(this);
+    this.addComment = this.addComment.bind(this);
   }
 
-  toggleEvent() {
-    this.setState({
-      clicked: true
-    });
-  }
-
-  componentDidUpdate() {
-    if (this.props.newComment) {
-      fetch('/api/comments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(this.props.newComment)
-      })
-        .then(response => response.json())
-        .then(data => {
-          this.setState({
-            newComment: data,
-            comments: this.state.comments.concat(data)
-          });
-        })
-        .then(() => {
-          this.setState({
-            newComment: false
-          });
-        })
-        .then(() => {
-          this.props.changeState();
-        })
-        .catch(error => {
-          console.error('Error:', error);
+  addComment(comment) {
+    fetch('/api/comments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(comment)
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          comments: this.state.comments.concat(data),
+          isCommenting: false
         });
-    }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
+  toggleComment() {
+    this.setState({
+      isCommenting: true
+    });
   }
 
   render() {
@@ -66,7 +56,7 @@ class Post extends React.Component {
         <div key={index}>{match}</div>
       );
     });
-    const memoryComment = !eventDate && <div className="row add-comment"><button onClick={() => this.props.addComment(postId)}>Add a Comment</button></div>;
+    const memoryComment = !eventDate && <div className="row add-comment"><button onClick={() => this.toggleComment()}>Add a Comment</button></div>;
     const eventDateElement = eventDate && <div className="event-date">
         <div className="row justify-center">
             <h1>{formatDay}</h1>
@@ -95,6 +85,8 @@ class Post extends React.Component {
         <img src={imageUrl} alt=""/>
       </div>;
     return (
+    <>
+    {this.state.isCommenting && <Modal postId={this.state.postId} addComment={this.addComment} toggleComment={this.toggleComment} />}
       <div className="container">
           <div className="event card">
             { eventHeader }
@@ -109,6 +101,7 @@ class Post extends React.Component {
         </div>
         {memoryComment}
       </div>
+    </>
     );
   }
 }
@@ -121,11 +114,6 @@ export default function postList(props) {
         <Post
           key={post.postId}
           post={post}
-          postId={props.postId}
-          addComment={props.addComment}
-          addedCommentState={props.addedCommentState}
-          newComment={props.newComment}
-          changeState={props.resetState}
         />
       );
     })}

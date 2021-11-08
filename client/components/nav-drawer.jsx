@@ -26,7 +26,7 @@ class Navigation extends React.Component {
         <div className={`nav-slider ${isClicked}`}>
           <h1>Social Lite</h1>
           <ul>
-            <a href="#"><li onClick={this.handleClick}><h3>Home</h3></li></a>
+            <a href="#home"><li onClick={this.handleClick}><h3>Home</h3></li></a>
             <a href="#post"><li onClick={this.handleClick}><h3>Create a Post</h3></li></a>
           </ul>
         </div>

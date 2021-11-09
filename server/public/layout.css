@@ -143,4 +143,38 @@
     padding: 0.4rem;
     display: block;
   }
+
+  .login {
+    background-color: var(--dark-color-a);
+    width: 45%;
+    border-radius: 3rem;
+    color: white;
+    padding: 3rem;
+    box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 88%);
+  }
+
+  .add-profile-button {
+    width: 10%;
+    padding-top: 9.5rem;
+  }
+
+  .upload-image {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  .registration-photo {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  .image-upload2 {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  .create-username,
+  .create-password {
+    margin: 0 12.5%;
+  }
 }

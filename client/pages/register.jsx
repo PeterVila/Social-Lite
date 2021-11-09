@@ -114,22 +114,21 @@ export default class Register extends React.Component {
   }
 
   render() {
-    const isUploaded = (
-      <div className="absolute center-element add-profile-button">
-        <input className="profile-upload"
-          required type="file"
-          name="avatarUrl"
-          ref={this.fileInputRef}
-          accept=".png, .jpg, .jpeg"
-          onChange={this.fileChangedHandler}/>
-      </div>);
-
-    const imgPreview = this.state.img
-      ? <img className="registration-photo" src={this.state.img}/>
-      : null;
     const firstPage = this.state.firstPage
-      ? <div className="log">
-      <form onSubmit={this.firstSubmit}>
+      ? <StartRegistration firstSubmit={this.firstSubmit} usernameChange={this.usernameChange} passwordChange={this.passwordChange}/>
+      : <FinishRegistration fileInputRef={this.fileInputRef} fileChangedHandler={this.fileChangedHandler} img={this.state.img} finishRegistration={this.finishRegistration} displayNameChange={this.displayNameChange} infoChange={this.infoChange}/>;
+    return (
+      <>
+      { firstPage }
+      </>
+    );
+  }
+}
+
+function StartRegistration(props) {
+  return (
+    <div className="log">
+      <form onSubmit={props.firstSubmit}>
           <div className="login">
               <div className="register row justify-space">
                 <div><h2><a href="#">Login</a></h2></div>
@@ -137,45 +136,54 @@ export default class Register extends React.Component {
               </div>
               <div className="create-username">
                 <h2>Create a username</h2>
-                <input name="username" id="username" onChange={this.usernameChange} type="text"></input>
+                <input name="username" id="username" onChange={props.usernameChange} type="text"></input>
               </div>
               <div className="create-password">
                 <h2>Create a password</h2>
-                <input name="password" id="password" onChange={this.passwordChange} type="password"></input>
+                <input name="password" id="password" onChange={props.passwordChange} type="password"></input>
               </div>
               <div className="submit">
                 <button>Register</button>
-              </div>
-          </div>
-          </form>
-        </div>
-      : <div className="log secondPage">
-          <form onSubmit={this.finishRegistration}>
-          <div className="login">
-              <div className="register row justify-space">
-              <div className="image-upload2">
-                    { isUploaded }
-                    { imgPreview }
-              </div>
             </div>
-              <div className="create-username">
-                <h2>Display Name</h2>
-                <textarea name="displayName" id="displayName" className="extra-user-inputs" onChange={this.displayNameChange}/>
-              </div>
-              <div className="create-password">
-                <h2>Short Description</h2>
-                <textarea name="description" id="description" className="extra-user-inputs profile-description" onChange={this.infoChange}/>
-              </div>
-              <div className="submit">
-                <button>Complete Registration</button>
-              </div>
+        </div>
+      </form>
+    </div>
+  );
+}
+function FinishRegistration(props) {
+  const isUploaded = (
+    <div className="absolute center-element add-profile-button">
+      <input className="profile-upload"
+        required type="file"
+        name="avatarUrl"
+        ref={props.fileInputRef}
+        accept=".png, .jpg, .jpeg"
+        onChange={props.fileChangedHandler}/>
+    </div>);
+  const imgPreview = props.img && <img className="registration-photo" src={props.img}/>;
+  return (
+    <div className="log secondPage">
+      <form onSubmit={props.finishRegistration}>
+        <div className="login">
+          <div className="register row justify-space">
+          <div className="image-upload2">
+                { isUploaded }
+                { imgPreview }
           </div>
-          </form>
-        </div>;
-    return (
-      <>
-      { firstPage }
-      </>
-    );
-  }
+        </div>
+          <div className="create-username">
+            <h2>Display Name</h2>
+            <textarea name="displayName" id="displayName" className="extra-user-inputs" onChange={props.displayNameChange}/>
+          </div>
+          <div className="create-password">
+            <h2>Short Description</h2>
+            <textarea name="description" id="description" className="extra-user-inputs profile-description" onChange={props.infoChange}/>
+          </div>
+          <div className="submit">
+            <button>Register</button>
+         </div>
+        </div>
+      </form>
+    </div>
+  );
 }

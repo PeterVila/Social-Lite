@@ -39,7 +39,7 @@ export default class App extends React.Component {
   render() {
     return (
     <>
-    <Navigation state={this.state.route}/>
+    <Navigation path={this.state.route.path}/>
     { this.renderPage() }
     <FooterNav />
     </>

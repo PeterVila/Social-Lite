@@ -166,7 +166,7 @@ function FinishRegistration(props) {
       <form onSubmit={props.finishRegistration}>
         <div className="login">
           <div className="register row justify-space">
-          <div className="image-upload2">
+          <div className="profile-image-upload">
                 { isUploaded }
                 { imgPreview }
           </div>

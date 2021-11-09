@@ -36,7 +36,7 @@ class Navigation extends React.Component {
             <i onClick={this.handleClick} className="fas fa-bars"></i>
          </div>
         <div className="nav-header row">
-            <h1 className="nav-title">{this.props.state.path}</h1>
+            <h1 className="nav-title">{this.props.path}</h1>
             <input className="nav-search" type="text"/>
             <div className="search-icon">
                 <i className="fas fa-search"></i>

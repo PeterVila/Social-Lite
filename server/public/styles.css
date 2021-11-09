@@ -42,7 +42,7 @@ body {
   opacity: 30%;
 }
 
-input[type="file"]::-webkit-file-upload-button {
+.image-upload input[type="file"]::-webkit-file-upload-button {
   width: 100%;
   height: 5rem;
   border-radius: 5rem;
@@ -449,4 +449,94 @@ i:hover {
   margin: 0;
   border: 2px solid var(--dark-color-b);
   object-fit: cover;
+}
+
+.login {
+  background-color: var(--dark-color-a);
+  width: 90%;
+  border-radius: 3rem;
+  color: white;
+  padding: 3rem;
+  box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 88%);
+}
+
+.login input,
+.extra-user-inputs {
+  color: var(--dark-color-a);
+  width: 100%;
+  border-radius: 3rem;
+  height: 2rem;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5rem;
+  font-style: 1.5rem;
+  padding-left: 1rem;
+}
+
+.register {
+  margin-bottom: 2rem;
+}
+
+.log button {
+  background-color: var(--highlight);
+  border-radius: 1.5rem;
+  margin-top: 1rem;
+  width: 40%;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  border: none;
+  color: white;
+  font-weight: bold;
+}
+
+.create-username h2,
+.create-password h2 {
+  margin: 0.5rem;
+}
+
+.register a {
+  text-decoration: none;
+  color: white;
+}
+
+.register-on {
+  color: var(--highlight);
+}
+
+.upload-image {
+  width: 10rem;
+  height: 10rem;
+  background-color: grey;
+  border-radius: 50%;
+}
+
+.registration-photo {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.image-upload2 {
+  display: flex;
+  justify-content: center;
+  width: 10rem;
+  height: 10rem;
+  background-color: var(--dark-color-b);
+  border-radius: 50%;
+}
+
+.image-upload2 input[type="file"]::-webkit-file-upload-button {
+  width: 100%;
+  border-radius: 5rem;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.add-profile-button {
+  width: 35%;
+  padding-top: 9.5rem;
 }

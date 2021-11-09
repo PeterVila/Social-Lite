@@ -5,12 +5,12 @@ class Modal extends React.Component {
     super(props);
     this.state = {
       comment: '',
-      modal: true,
+      modal: this.props.isCommenting,
       postId: this.props.postId
     };
     this.commentChange = this.commentChange.bind(this);
-    this.changeState = this.changeState.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   handleSubmit(event) {
@@ -38,12 +38,6 @@ class Modal extends React.Component {
     });
   }
 
-  changeState() {
-    this.setState({
-      postId: false
-    });
-  }
-
   render() {
     const closeModal = !this.state.modal ? 'modal-background hidden' : 'modal-background';
     return (
@@ -55,7 +49,7 @@ class Modal extends React.Component {
             <textarea onChange={this.commentChange} type="text" name="name" id="name"/>
           </div>
           <div className="row justify-evenly">
-            <button type="button" onClick={this.props.closeModal} id="cancel">Cancel</button>
+            <button type="button" onClick={this.props.cancelComment} id="cancel">Cancel</button>
             <button type="submit">Submit</button>
           </div>
         </form>

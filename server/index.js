@@ -1,6 +1,7 @@
 require('dotenv/config');
 const express = require('express');
 const pg = require('pg');
+const argon2 = require('argon2');
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const uploadsMiddleware = require('./uploads-middleware');
@@ -129,6 +130,38 @@ app.get('/api/comments', (req, res, next) => {
   db.query(sql)
     .then(result => {
       res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/auth/sign-up', uploadsMiddleware, (req, res, next) => {
+  const {
+    username,
+    password,
+    displayName,
+    description
+  } = req.body;
+  if (!username || !password || !displayName || !description) {
+    throw new ClientError(400, 'username,password, avatarUrl, email are required fields');
+  }
+  const avatarUrl = '/profiles/' + req.file.filename;
+  if (!avatarUrl) {
+    throw new ClientError(400, 'imageUrl is a required field');
+  }
+  argon2
+    .hash(password)
+    .then(hashedPassword => {
+      const sql = `
+        insert into "users" ("username", "password", "displayName", "avatarUrl", "description")
+        values ($1, $2, $3, $4, $5)
+        returning *
+      `;
+      const params = [username, hashedPassword, displayName, avatarUrl, description];
+      return db.query(sql, params);
+    })
+    .then(result => {
+      const [user] = result.rows;
+      res.status(201).json(user);
     })
     .catch(err => next(err));
 });

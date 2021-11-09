@@ -1,6 +1,8 @@
 import React from 'react';
 import Home from './pages/home';
 import Post from './pages/post';
+import Register from './pages/register';
+import Register2 from './pages/register2';
 
 import Navigation from './components/nav-drawer';
 import FooterNav from './components/nav-footer';
@@ -25,13 +27,16 @@ export default class App extends React.Component {
   renderPage() {
     const { route } = this.state;
     if (route.path === '') {
-      return <Home />;
+      return <Register />;
     }
     if (route.path === 'post') {
       return <Post />;
     }
     if (route.path === 'home') {
       return <Home />;
+    }
+    if (route.path === 'register2') {
+      return <Register2 />;
     }
   }
 

@@ -10,9 +10,10 @@ CREATE TABLE "public"."users" (
 	"userId" serial NOT NULL,
 	"username" TEXT NOT NULL UNIQUE,
 	"password" TEXT NOT NULL,
+	"displayName" TEXT NOT NULL,
 	"createdAt" timestamptz(6) NOT NULL default now(),
 	"avatarUrl" TEXT,
-	"email" TEXT NOT NULL,
+	"description" TEXT NOT NULL,
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE

@@ -540,3 +540,8 @@ i:hover {
   width: 35%;
   padding-top: 9.5rem;
 }
+
+.profile-description {
+  height: 5rem;
+  border-radius: 1rem;
+}

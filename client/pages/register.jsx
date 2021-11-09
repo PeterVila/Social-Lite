@@ -164,10 +164,10 @@ export default class Register extends React.Component {
               </div>
               <div className="create-password">
                 <h2>Short Description</h2>
-                <textarea name="description" id="description" className="extra-user-inputs" onChange={this.infoChange}/>
+                <textarea name="description" id="description" className="extra-user-inputs profile-description" onChange={this.infoChange}/>
               </div>
               <div className="submit">
-                <button>Register</button>
+                <button>Complete Registration</button>
               </div>
           </div>
           </form>

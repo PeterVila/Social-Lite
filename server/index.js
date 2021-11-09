@@ -5,6 +5,7 @@ const argon2 = require('argon2');
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const uploadsMiddleware = require('./uploads-middleware');
+const uploadsMiddlewareProfiles = require('./uploads-middleware-profiles');
 const ClientError = require('./client-error');
 
 const db = new pg.Pool({
@@ -134,7 +135,7 @@ app.get('/api/comments', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/auth/sign-up', uploadsMiddleware, (req, res, next) => {
+app.post('/api/auth/sign-up', uploadsMiddlewareProfiles, (req, res, next) => {
   const {
     username,
     password,

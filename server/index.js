@@ -1,6 +1,7 @@
 require('dotenv/config');
 const express = require('express');
 const pg = require('pg');
+const argon2 = require('argon2');
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const uploadsMiddleware = require('./uploads-middleware');
@@ -17,35 +18,6 @@ const app = express();
 app.use(staticMiddleware);
 const jsonMiddleware = express.json();
 app.use(jsonMiddleware);
-
-app.post('/api/users/', (req, res, next) => {
-  const {
-    username,
-    password,
-    avatarUrl,
-    email
-  } = req.body;
-  if (!username || !password || !avatarUrl || !email) {
-    res.status(400).json({
-      error: 'username, password, avatarUrl and email are required fields'
-    });
-    return;
-  }
-  const sql = `
-    insert into "users" ("username", "password", "avatarUrl", "email")
-    values ($1, $2, $3, $4)
-    returning *
-  `;
-  const params = [username, password, avatarUrl, email];
-  db.query(sql, params)
-    .then(result => {
-      const [user] = result.rows;
-      res.status(201).json(user);
-    })
-    .catch(err => {
-      next(err);
-    });
-});
 
 app.post('/api/comments/', (req, res, next) => {
   const {
@@ -85,10 +57,10 @@ app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
   if (!userId || !postType || !location || !postTitle) {
     throw new ClientError(400, 'userId, postType, location, postTitle are required fields');
   }
-  const imageUrl = '/images/' + req.file.filename;
-  if (!imageUrl) {
+  if (!req.file) {
     throw new ClientError(400, 'imageUrl is a required field');
   }
+  const imageUrl = '/images/' + req.file.filename;
   const sql = `
     insert into "posts" ("userId", "postType", "imageUrl", "caption", "location", "eventDate", "postTitle", "endTime")
     values ($1, $2, $3, $4, $5, $6, $7, $8)
@@ -129,6 +101,38 @@ app.get('/api/comments', (req, res, next) => {
   db.query(sql)
     .then(result => {
       res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/auth/sign-up', uploadsMiddleware, (req, res, next) => {
+  const {
+    username,
+    password,
+    displayName,
+    description
+  } = req.body;
+  if (!username || !password || !displayName || !description) {
+    throw new ClientError(400, 'username, password, displayName, and decription');
+  }
+  if (!req.file) {
+    throw new ClientError(400, 'avatarUrl is a required field');
+  }
+  const avatarUrl = '/profiles/' + req.file.filename;
+  argon2
+    .hash(password)
+    .then(hashedPassword => {
+      const sql = `
+        insert into "users" ("username", "password", "displayName", "avatarUrl", "description")
+        values ($1, $2, $3, $4, $5)
+        returning *
+      `;
+      const params = [username, hashedPassword, displayName, avatarUrl, description];
+      return db.query(sql, params);
+    })
+    .then(result => {
+      const [user] = result.rows;
+      res.status(201).json(user);
     })
     .catch(err => next(err));
 });

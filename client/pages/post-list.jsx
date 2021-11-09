@@ -7,10 +7,11 @@ class Post extends React.Component {
     super(props);
     this.state = {
       comments: this.props.post.comments,
-      isCommenting: this.props.open,
+      isCommenting: false,
       postId: this.props.post.postId
     };
     this.addComment = this.addComment.bind(this);
+    this.cancelComment = this.cancelComment.bind(this);
   }
 
   addComment(comment) {
@@ -23,6 +24,11 @@ class Post extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
+        if (this.state.comments === null) {
+          this.setState({
+            comments: []
+          });
+        }
         this.setState({
           comments: this.state.comments.concat(data),
           isCommenting: false
@@ -36,6 +42,12 @@ class Post extends React.Component {
   toggleComment() {
     this.setState({
       isCommenting: true
+    });
+  }
+
+  cancelComment() {
+    this.setState({
+      isCommenting: false
     });
   }
 
@@ -86,7 +98,7 @@ class Post extends React.Component {
       </div>;
     return (
     <>
-    {this.state.isCommenting && <Modal postId={this.state.postId} addComment={this.addComment} toggleComment={this.toggleComment} />}
+    {this.state.isCommenting && <Modal postId={this.state.postId} addComment={this.addComment} toggleComment={this.toggleComment} isCommenting={this.state.isCommenting} cancelComment={this.cancelComment}/>}
       <div className="container">
           <div className="event card">
             { eventHeader }

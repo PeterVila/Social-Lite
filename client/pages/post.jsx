@@ -1,6 +1,7 @@
 import React from 'react';
 import Resizer from 'react-image-file-resizer';
 import Redirect from '../components/redirect';
+import AppContext from '../lib/app-context';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -178,3 +179,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+App.contextType = AppContext;

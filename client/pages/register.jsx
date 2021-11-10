@@ -131,7 +131,7 @@ function StartRegistration(props) {
       <form onSubmit={props.firstSubmit}>
           <div className="login">
               <div className="register row justify-space">
-                <div><h2><a href="#">Login</a></h2></div>
+                <div><h2><a href="#login">Login</a></h2></div>
                 <div><h2 className="register-on">Register</h2></div>
               </div>
               <div className="create-username">

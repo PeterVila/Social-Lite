@@ -9,7 +9,7 @@ create schema "public";
 CREATE TABLE "public"."users" (
 	"userId" serial NOT NULL,
 	"username" TEXT NOT NULL UNIQUE,
-	"password" TEXT NOT NULL,
+	"hashedPassword" TEXT NOT NULL,
 	"displayName" TEXT NOT NULL,
 	"createdAt" timestamptz(6) NOT NULL default now(),
 	"avatarUrl" TEXT,

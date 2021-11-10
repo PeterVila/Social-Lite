@@ -1,5 +1,8 @@
 import React from 'react';
 import PostList from './post-list';
+import AppContext from '../lib/app-context';
+import Redirect from '../components/redirect';
+
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -10,14 +13,19 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/posts/')
-      .then(res => res.json())
-      .then(data => this.setState({
-        posts: data
-      }));
+    if (this.context.user) {
+      fetch('/api/posts/')
+        .then(res => res.json())
+        .then(data => this.setState({
+          posts: data
+        }));
+    }
   }
 
   render() {
+
+    if (!this.context.user) return <Redirect to="login" />;
+
     return (
       <>
       <PostList posts={this.state.posts}/>
@@ -25,3 +33,5 @@ export default class Home extends React.Component {
     );
   }
 }
+
+Home.contextType = AppContext;

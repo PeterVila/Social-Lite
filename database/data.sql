@@ -1,4 +1,4 @@
-insert into "users" ("username", "password", "displayName", "avatarUrl", "description")
+insert into "users" ("username", "hashedPassword", "displayName", "avatarUrl", "description")
 values ('petervila', 'monkey', 'Peter', 'test.jpg', 'this is acount 1'),
        ('datboi', 'pass123', 'Peaaaa', 'avatar.jpg', 'this is acount 2'),
        ('ohboi', 'pass', 'Priscilla', 'lol.jpg', 'this is acount 3');

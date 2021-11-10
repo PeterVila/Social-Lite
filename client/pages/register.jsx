@@ -1,5 +1,7 @@
 import React from 'react';
 import Resizer from 'react-image-file-resizer';
+import Redirect from '../components/redirect';
+import AppContext from '../lib/app-context';
 
 export default class Register extends React.Component {
   constructor(props) {
@@ -77,7 +79,6 @@ export default class Register extends React.Component {
           img: null,
           file: null
         });
-        this.fileInputRef.current.value = null;
       })
       .catch(err => {
         throw err;
@@ -114,6 +115,7 @@ export default class Register extends React.Component {
   }
 
   render() {
+    if (this.context.user) return <Redirect to="" />;
     const firstPage = this.state.firstPage
       ? <StartRegistration firstSubmit={this.firstSubmit} usernameChange={this.usernameChange} passwordChange={this.passwordChange}/>
       : <FinishRegistration fileInputRef={this.fileInputRef} fileChangedHandler={this.fileChangedHandler} img={this.state.img} finishRegistration={this.finishRegistration} displayNameChange={this.displayNameChange} infoChange={this.infoChange}/>;
@@ -165,7 +167,7 @@ function FinishRegistration(props) {
     <div className="log secondPage">
       <form onSubmit={props.finishRegistration}>
         <div className="login">
-          <div className="register row justify-space">
+          <div className="row justify-space">
           <div className="profile-image-upload">
                 { isUploaded }
                 { imgPreview }
@@ -187,3 +189,5 @@ function FinishRegistration(props) {
     </div>
   );
 }
+
+Register.contextType = AppContext;

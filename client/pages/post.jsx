@@ -1,5 +1,6 @@
 import React from 'react';
 import Resizer from 'react-image-file-resizer';
+import Redirect from '../components/redirect';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -53,12 +54,6 @@ export default class App extends React.Component {
         200
       );
     }
-  }
-
-  componentDidMount() {
-    fetch('/api/posts/')
-      .then(res => res.json())
-      .then(posts => this.setState({ posts: posts }));
   }
 
   handleCaptionChange(event) {
@@ -135,6 +130,8 @@ export default class App extends React.Component {
   }
 
   render() {
+    if (!this.context.user) return <Redirect to="login" />;
+
     const eventClicked = this.state.postType === 'event' ? 'event-button clicked' : 'event-button white-button';
     const memoryClicked = this.state.postType === 'memory' ? 'memory-button clicked' : 'memory-button white-button';
     const isUploaded = !this.state.file

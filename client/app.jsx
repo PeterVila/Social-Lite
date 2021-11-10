@@ -20,7 +20,7 @@ export default class App extends React.Component {
       isAuthorizing: true
     };
     this.handleSignIn = this.handleSignIn.bind(this);
-    this.handleSignout = this.handleSignOut.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   handleSignIn(result) {
@@ -70,7 +70,7 @@ export default class App extends React.Component {
     const contextValue = { user, route, handleSignIn, handleSignOut };
     return (
     <AppContext.Provider value={contextValue}>
-    <Navigation path={this.state.route.path}/>
+    <Navigation path={this.state.route.path} />
     { this.renderPage() }
     <FooterNav />
     </AppContext.Provider>

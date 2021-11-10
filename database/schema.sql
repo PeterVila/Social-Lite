@@ -24,8 +24,9 @@ CREATE TABLE "public"."users" (
 CREATE TABLE "public"."comments" (
   "messageId" serial NOT NULL,
 	"userId" serial NOT NULL,
+  "username" TEXT NOT NULL,
 	"content" TEXT NOT NULL,
-	"postId" serial NOT NULL,
+	"postId" INTEGER NOT NULL,
 	"createdAt" timestamptz NOT NULL default now()
 ) WITH (
   OIDS=FALSE

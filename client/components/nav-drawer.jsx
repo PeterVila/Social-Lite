@@ -24,6 +24,7 @@ class Navigation extends React.Component {
     const drawerBackground = this.state.isClicked ? 'backdrop' : '';
     return (
       <>
+      {this.context.user && (
       <nav className={modalBackground}>
         <div onClick={ backdrop } className={drawerBackground}></div>
           <div className={`nav-slider ${isClicked}`}>
@@ -31,29 +32,28 @@ class Navigation extends React.Component {
             <ul>
               <a href="#"><li onClick={this.handleClick}><h3>Home</h3></li></a>
               <a href="#post"><li onClick={this.handleClick}><h3>Create a Post</h3></li></a>
-              <button onClick={handleSignOut}><h3>Log Out</h3></button>
+              <a><li onClick={handleSignOut}><h3>Log Out</h3></li></a>
             </ul>
           </div>
         <div className="nav col-full">
-        {this.context.user && (
                     <div className="row">
             <div className="hamburger">
               <i onClick={this.handleClick} className="fas fa-bars"></i>
           </div>
             <div className="nav-header row">
-                <h1 className="nav-title">{this.props.path}</h1>
+                <h1 className="nav-title">Home</h1>
                   <input className="nav-search" type="text"/>
                 <div className="search-icon">
                     <i className="fas fa-search"></i>
                 </div>
             </div>
               <div className="profile-picture row">
-                  <img src="https://i.pinimg.com/564x/db/05/76/db057671463a0705fed6c71c8e3c3b4f.jpg" alt=""/>
+                  <img src={this.context.user.avatarUrl} alt=""/>
               </div>
             </div>
-        )}
         </div>
       </nav>
+      )}
       </>
     );
   }

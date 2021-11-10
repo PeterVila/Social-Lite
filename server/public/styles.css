@@ -473,6 +473,7 @@ i:hover {
   color: white;
   padding: 3rem;
   box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 88%);
+  margin-top: 5rem;
 }
 
 .login input,
@@ -489,13 +490,10 @@ i:hover {
   overflow: hidden;
 }
 
-.register {
-  margin-bottom: 2rem;
-}
-
 .create-username h2,
 .create-password h2 {
   margin: 0.5rem;
+  text-align: center;
 }
 
 .register a {
@@ -546,4 +544,13 @@ i:hover {
 .profile-description {
   height: 5rem;
   border-radius: 1rem;
+}
+
+.register {
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 3rem;
+}
+
+.register:hover {
+  transform: scale(1.15);
 }

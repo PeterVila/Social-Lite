@@ -62,7 +62,7 @@ class Post extends React.Component {
     const messages = this.state.comments && this.state.comments.map((comment, index) => {
       const commentDate = new Date(comment.createdAt);
       const formatComment = formatDistance(new Date(), new Date(commentDate));
-      const match = comment.postId === postId && <div className="comments row justify-space"><p>{`${comment.userId} : ${comment.content}`}</p>
+      const match = comment.postId === postId && <div className="comments row justify-space"><p>{`${comment.username} : ${comment.content}`}</p>
         <p className="time-ago">{formatComment}</p></div>;
       return (
         <div key={index}>{match}</div>

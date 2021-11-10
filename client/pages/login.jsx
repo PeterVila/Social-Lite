@@ -58,9 +58,9 @@ function StartRegistration(props) {
     <div className="log">
       <form onSubmit={props.handleSubmit}>
           <div className="login">
-              <div className="register row justify-space">
+              <div className="row justify-space">
                 <div><h2 className="register-on">Login</h2></div>
-                <div><h2><a href="#register">Register</a></h2></div>
+                <div><h2 className="register"><a href="#register">Register</a></h2></div>
               </div>
               <div className="create-username">
                 <h2>Username</h2>

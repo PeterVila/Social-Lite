@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 
 class Modal extends React.Component {
   constructor(props) {
@@ -17,7 +18,9 @@ class Modal extends React.Component {
     event.preventDefault();
     const obj = {
       postId: this.props.postId,
-      content: this.state.comment
+      content: this.state.comment,
+      userId: this.context.user.userId,
+      username: this.context.user.username
     };
     this.setState({
       comment: null,
@@ -59,4 +62,5 @@ class Modal extends React.Component {
   }
 }
 
+Modal.contextType = AppContext;
 export default Modal;

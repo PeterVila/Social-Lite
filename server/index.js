@@ -22,19 +22,20 @@ app.use(jsonMiddleware);
 
 app.post('/api/comments/', (req, res, next) => {
   const {
-    userId = 2,
+    userId,
     content,
-    postId
+    postId,
+    username
   } = req.body;
   if (!content || !postId) {
     throw new ClientError(400, 'postId and content');
   }
   const sql = `
-    insert into "comments" ("userId", "content", "postId")
-    values ($1, $2, $3)
+    insert into "comments" ("userId", "content", "postId", "username")
+    values ($1, $2, $3, $4)
     returning *
   `;
-  const params = [userId, content, postId];
+  const params = [userId, content, postId, username];
   db.query(sql, params)
     .then(result => {
       const [user] = result.rows;
@@ -80,10 +81,10 @@ app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
 
 app.get('/api/posts', (req, res, next) => {
   const sql = `
-  SELECT "postId", "userId", "postTitle", "postType", "imageUrl", "caption", "eventDate", "endTime", "location", "posts"."createdAt",
+  SELECT "postId", "posts"."userId", "postTitle", "postType", "imageUrl", "caption", "eventDate", "endTime", "location", "posts"."createdAt",
     JSON_AGG("comments".*) FILTER (WHERE "comments" is not null) as "comments"
   FROM "posts"
-  left JOIN "comments" USING ("postId", "userId")
+  left JOIN "comments" USING ("postId")
   group by "postId"
   order by "posts"."createdAt"
   `;
@@ -119,7 +120,7 @@ app.post('/api/auth/sign-up', uploadsMiddleware, (req, res, next) => {
   if (!req.file) {
     throw new ClientError(400, 'avatarUrl is a required field');
   }
-  const avatarUrl = '/profiles/' + req.file.filename;
+  const avatarUrl = '/images/' + req.file.filename;
   argon2
     .hash(password)
     .then(hashedPassword => {
@@ -144,8 +145,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
     throw new ClientError(401, 'invalid login');
   }
   const sql = `
-    select "userId",
-           "hashedPassword"
+    select *
       from "users"
      where "username" = $1
   `;
@@ -156,14 +156,14 @@ app.post('/api/auth/sign-in', (req, res, next) => {
       if (!user) {
         throw new ClientError(401, 'invalid login');
       }
-      const { userId, hashedPassword } = user;
+      const { userId, hashedPassword, username, displayName, avatarUrl, description } = user;
       return argon2
         .verify(hashedPassword, password)
         .then(isMatching => {
           if (!isMatching) {
             throw new ClientError(401, 'invalid login');
           }
-          const payload = { userId, username };
+          const payload = { userId, username, displayName, avatarUrl, description };
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
           res.json({ token, user: payload });
         });

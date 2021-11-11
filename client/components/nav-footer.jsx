@@ -32,7 +32,7 @@ class AppDrawer extends React.Component {
           <a href="#idk">?</a>
         </div>
         <div className="icon text-center">
-          <a href="#Chatrooms"><i className="fas fa-comment"></i></a>
+          <a href="#Chat"><i className="fas fa-comment"></i></a>
         </div>
       </div>
     </footer>

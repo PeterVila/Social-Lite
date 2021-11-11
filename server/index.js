@@ -17,17 +17,13 @@ const db = new pg.Pool({
 
 const app = express();
 const http = require('http');
-const cors = require('cors');
-app.use(cors());
+// const cors = require('cors');
+// app.use(cors());
 
-const { Server } = require('socket.io');
+const socketio = require('socket.io');
 const server = http.createServer(app);
 
-const io = new Server(server, {
-  cors: {
-    methods: ['GET', 'POST'],
-  }
-})
+const io = socketio(server);
 
 io.on('connection', socket => {
   console.log(`User Connected: ${socket.id}`);

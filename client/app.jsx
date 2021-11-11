@@ -3,7 +3,7 @@ import Home from './pages/home';
 import Login from './pages/login';
 import Register from './pages/register';
 import Post from './pages/post';
-import Rooms from './pages/chatrooms';
+import Chat from './pages/chat';
 import AppContext from './lib/app-context';
 import decodeToken from './lib/decode-token';
 import Navigation from './components/nav-drawer';
@@ -60,9 +60,9 @@ export default class App extends React.Component {
     if (route.path === 'Post') {
       return <Post />;
     }
-    if (route.path === 'Chatrooms') {
+    if (route.path === 'Chat') {
       const tempVar = JSON.parse(JSON.stringify(this.state.user.avatarUrl));
-      return <Rooms username={this.state.user.displayName} avatar={tempVar}/>;
+      return <Chat username={this.state.user.displayName} avatar={tempVar}/>;
     }
   }
 

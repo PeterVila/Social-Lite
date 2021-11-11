@@ -1,6 +1,6 @@
 import React from 'react';
-// const socket = io.connect('http://localhost:4000') //connecting front end to back end
-// const socket = io.connect("http://192.168.29.119:5000/");
+import io from 'socket.io-client';
+
 export default class Chat extends React.Component {
   constructor(props) {
     super(props);
@@ -16,11 +16,20 @@ export default class Chat extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.socket = io.connect();
+    this.socket.emit('join_room', 'Public');
+  }
+
+  componentWillUnmount() {
+    this.socket.disconnect();
+  }
+
   render() {
     return (
         <div className="chat-window">
             <div className="chat-header">
-                <p>{this.props.room}</p>
+                <p>Public</p>
             </div>
      <div className="chat-body">
       </div>

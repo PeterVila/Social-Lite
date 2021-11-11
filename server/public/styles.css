@@ -586,11 +586,6 @@ i:hover {
   background: var(--default);
 }
 
-/* .chat-window .chat-body .message .message-meta {
-  display: flex;
-  font-size: 12px;
-} */
-
 .chat-window .chat-footer {
   height: 40px;
   border: 1px solid var(--dark-color-a);

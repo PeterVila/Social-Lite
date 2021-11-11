@@ -3,16 +3,12 @@ import Home from './pages/home';
 import Login from './pages/login';
 import Register from './pages/register';
 import Post from './pages/post';
-import Chat from './pages/chat';
+import Rooms from './pages/chatrooms';
 import AppContext from './lib/app-context';
 import decodeToken from './lib/decode-token';
 import Navigation from './components/nav-drawer';
 import FooterNav from './components/nav-footer';
 import parseRoute from './lib/parse-route';
-
-import io from 'socket.io-client'; //Used to establish connection
-
-const socket = io.connect('http://localhost:3001');
 
 export default class App extends React.Component {
   constructor(props) {
@@ -61,11 +57,12 @@ export default class App extends React.Component {
     if (route.path === 'register') {
       return <Register />;
     }
-    if (route.path === 'post') {
+    if (route.path === 'Post') {
       return <Post />;
     }
-    if (route.path === 'chat') {
-      return <Chat />;
+    if (route.path === 'Chatrooms') {
+      const tempVar = JSON.parse(JSON.stringify(this.state.user.avatarUrl));
+      return <Rooms username={this.state.user.displayName} avatar={tempVar}/>;
     }
   }
 

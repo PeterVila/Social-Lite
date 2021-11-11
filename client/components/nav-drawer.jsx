@@ -31,8 +31,8 @@ class Navigation extends React.Component {
             <h1>Social Lite</h1>
             <ul>
               <a href="#"><li onClick={this.handleClick}><h3>Home</h3></li></a>
-              <a href="#post"><li onClick={this.handleClick}><h3>Create a Post</h3></li></a>
-              <a href="#chat"><li onClick={this.handleClick}><h3>Chatroom</h3></li></a>
+              <a href="#Post"><li onClick={this.handleClick}><h3>Create a Post</h3></li></a>
+              <a href="#Chatrooms"><li onClick={this.handleClick}><h3>Chatrooms</h3></li></a>
               <a><li onClick={handleSignOut}><h3>Log Out</h3></li></a>
               <h3 className="welcome-user">{`Welcome ${this.context.user.displayName}!`}</h3>
             </ul>

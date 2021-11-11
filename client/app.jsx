@@ -61,8 +61,8 @@ export default class App extends React.Component {
       return <Post />;
     }
     if (route.path === 'Chat') {
-      const tempVar = JSON.parse(JSON.stringify(this.state.user.avatarUrl));
-      return <Chat username={this.state.user.displayName} avatar={tempVar}/>;
+      const avatarUrl = this.state.user.avatarUrl;
+      return <Chat username={this.state.user.displayName} avatar={avatarUrl}/>;
     }
   }
 

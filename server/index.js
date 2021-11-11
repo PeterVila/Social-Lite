@@ -7,7 +7,6 @@ const staticMiddleware = require('./static-middleware');
 const uploadsMiddleware = require('./uploads-middleware');
 const ClientError = require('./client-error');
 const jwt = require('jsonwebtoken');
-
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -16,6 +15,21 @@ const db = new pg.Pool({
 });
 
 const app = express();
+const http = require('http');
+const socketio = require('socket.io');
+const server = http.createServer(app);
+const io = socketio(server);
+
+io.on('connection', socket => {
+  console.log(`User Connected: ${socket.id}`);
+  socket.on('join_room', data => {
+    socket.join(data);
+    console.log(`User with ID: ${socket.id} joined room: ${data}`);
+  });
+  socket.on('disconnect', () => {
+    console.log(`User Disconnected: ${socket.id}`);
+  });
+});
 app.use(staticMiddleware);
 const jsonMiddleware = express.json();
 app.use(jsonMiddleware);
@@ -172,7 +186,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 });
 
 app.use(errorMiddleware);
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
 });

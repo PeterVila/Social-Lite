@@ -179,6 +179,7 @@ button:hover {
   box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 66%);
   z-index: -1;
   padding-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .card:nth-last-child() {
@@ -326,7 +327,6 @@ footer {
 .nav {
   background-color: var(--dark-color-a);
   box-shadow: 0 7px 20px 2px rgb(0 0 0 / 30%);
-  margin-bottom: 2rem;
 }
 
 .hamburger {
@@ -553,4 +553,82 @@ i:hover {
 
 .register:hover {
   transform: scale(1.15);
+}
+
+/* Chat */
+
+.chat-window {
+  width: 80%;
+  margin-top: 1rem;
+  border: 1px solid black;
+}
+
+.chat-window p {
+  margin: 0;
+}
+
+.chat-window .chat-header {
+  height: 45px;
+  background: var(--dark-color-a);
+  text-align: center;
+}
+
+.chat-window .chat-header p {
+  display: block;
+  padding: 0 1em 0 2em;
+  color: var(--default);
+  line-height: 45px;
+}
+
+.chat-window .chat-body {
+  height: 60vh;
+  border: 1px solid var(--dark-color-a);
+  background: var(--default);
+}
+
+.chat-window .chat-footer {
+  height: 40px;
+  border: 1px solid var(--dark-color-a);
+  border-top: none;
+  display: flex;
+}
+
+.chat-window .chat-footer input {
+  flex: 85%;
+}
+
+.chat-window .chat-footer button {
+  border: 0;
+  cursor: pointer;
+  flex: 15%;
+  background-color: var(--highlight);
+  color: white;
+}
+
+.message-row {
+  margin: 0;
+  display: flex;
+}
+
+.message-row img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.join-chat-button {
+  padding: 1rem 3rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+  background-color: var(--highlight);
+  color: var(--default);
+  cursor: pointer;
+  border: none;
+}
+
+.room-header {
+  color: var(--default);
+  margin-top: 2rem;
+  font-weight: bolder;
 }

@@ -3,10 +3,9 @@ import Home from './pages/home';
 import Login from './pages/login';
 import Register from './pages/register';
 import Post from './pages/post';
-
+import Chat from './pages/chat';
 import AppContext from './lib/app-context';
 import decodeToken from './lib/decode-token';
-
 import Navigation from './components/nav-drawer';
 import FooterNav from './components/nav-footer';
 import parseRoute from './lib/parse-route';
@@ -58,8 +57,12 @@ export default class App extends React.Component {
     if (route.path === 'register') {
       return <Register />;
     }
-    if (route.path === 'post') {
+    if (route.path === 'Post') {
       return <Post />;
+    }
+    if (route.path === 'Chat') {
+      const avatarUrl = this.state.user.avatarUrl;
+      return <Chat username={this.state.user.displayName} avatar={avatarUrl}/>;
     }
   }
 

@@ -29,10 +29,10 @@ class AppDrawer extends React.Component {
           <a href="#post"><i className="fas fa-camera"></i></a>
         </div>
         <div className="icon text-center">
-          <a href="#chat">?</a>
+          <a href="#idk">?</a>
         </div>
         <div className="icon text-center">
-          <a href="#profile">?</a>
+          <a href="#chat"><i className="fas fa-comment"></i></a>
         </div>
       </div>
     </footer>

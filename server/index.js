@@ -1,3 +1,4 @@
+/* eslint-disable */
 require('dotenv/config');
 const express = require('express');
 const pg = require('pg');
@@ -16,6 +17,34 @@ const db = new pg.Pool({
 });
 
 const app = express();
+const http = require('http');
+const cors = require('cors'); //Extremely important for socket.io
+const { Server } = require('socket.io'); //Want to implement a class from socket.io library
+app.use(cors()) //cors dataware to resolve issues
+const server = http.createServer(app) //Pass the express server
+
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:3000', //Tell our server which url where react app is running, localhost
+    methods: ['GET', 'POST']
+  }
+}) //Pass server we first created (to connect express), app.use(staticMiddleware);
+
+io.on('connection', socket => {
+  console.log(`User Connected: ${socket.id}`);
+  socket.on('join_room', data => { //passing front end
+    socket.join(data);
+    console.log(`User with ID: ${socket.id} joined room: ${data}`);
+  });
+  socket.on('send_message', data => {
+    console.log(data);
+    socket.to(data.room).emit('receive_message', data) //Sends to every user in the same chat
+  });
+
+  socket.on('disconnect', () => {
+    console.log(`User Disconnected: ${socket.id}`);
+  });
+});
 app.use(staticMiddleware);
 const jsonMiddleware = express.json();
 app.use(jsonMiddleware);
@@ -172,7 +201,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 });
 
 app.use(errorMiddleware);
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
 });

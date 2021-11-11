@@ -554,3 +554,36 @@ i:hover {
 .register:hover {
   transform: scale(1.15);
 }
+
+/* Chat */
+
+.select-chat {
+  width: 80%;
+  height: 70vh;
+  background: #fff;
+  color: var(--default);
+  border: 3px solid black;
+  font-family: "Open Sans", sans-serif;
+  border-radius: 1.5rem;
+  display: grid;
+  place-items: center;
+}
+
+.chat-header {
+  color: white;
+}
+
+.join-button {
+  width: 10rem;
+  background-color: var(--highlight);
+  color: white;
+  border-radius: 2rem;
+  cursor: hover;
+  padding: 0.5rem 0;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.welcome-user {
+  color: var(--highlight);
+}

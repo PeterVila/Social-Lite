@@ -334,6 +334,7 @@ footer {
   color: var(--default);
   font-size: 2rem;
   z-index: 1;
+  flex-basis: 20%;
 }
 
 i {
@@ -458,8 +459,8 @@ i:hover {
 }
 
 .profile-picture img {
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   margin: 0;
   border: 2px solid var(--dark-color-b);
@@ -558,9 +559,10 @@ i:hover {
 /* Chat */
 
 .chat-window {
-  width: 80%;
+  width: 90%;
   margin-top: 1rem;
   border: 1px solid black;
+  border-radius: 5px;
 }
 
 .chat-window p {
@@ -568,26 +570,85 @@ i:hover {
 }
 
 .chat-window .chat-header {
-  height: 45px;
+  height: 50px;
   background: var(--dark-color-a);
   text-align: center;
 }
 
 .chat-window .chat-header p {
+  font-size: 1.25rem;
   display: block;
   padding: 0 1em 0 2em;
-  color: var(--default);
+  color: var(--highlight);
   line-height: 45px;
 }
 
 .chat-window .chat-body {
-  height: 60vh;
+  height: 65vh;
   border: 1px solid var(--dark-color-a);
   background: var(--default);
 }
 
+.chat-window .chat-body .message-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.chat-window .chat-body .message {
+  height: auto;
+  padding: 10px;
+  display: flex;
+}
+
+.chat-window .chat-body .message .message-content {
+  min-height: 40px;
+  max-width: 120px;
+  background-color: var(--dark-color-a);
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  align-items: center;
+  margin: 0 0.5rem;
+  padding: 0 1rem;
+}
+
+#you {
+  justify-content: flex-start;
+}
+
+#you .message-content {
+  justify-content: flex-start;
+}
+
+#you .message-meta {
+  justify-content: flex-start;
+  margin-left: 5px;
+}
+
+#other {
+  justify-content: flex-end;
+}
+
+#other .message-content {
+  justify-content: flex-end;
+  background-color: var(--highlight);
+}
+
+#other .message-meta {
+  justify-content: flex-end;
+  margin-right: 5px;
+}
+
+.message-meta #author {
+  margin-left: 10px;
+  font-weight: bold;
+  color: var(--light-blue);
+}
+
 .chat-window .chat-footer {
-  height: 40px;
+  height: 50px;
   border: 1px solid var(--dark-color-a);
   border-top: none;
   display: flex;
@@ -595,14 +656,16 @@ i:hover {
 
 .chat-window .chat-footer input {
   flex: 85%;
+  border: 1px solid var(--dark-color-a);
 }
 
 .chat-window .chat-footer button {
-  border: 0;
+  border: 1px solid var(--dark-color-a);
   cursor: pointer;
   flex: 15%;
   background-color: var(--highlight);
   color: white;
+  font-weight: bolder;
 }
 
 .message-row {
@@ -611,9 +674,10 @@ i:hover {
 }
 
 .message-row img {
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .join-chat-button {

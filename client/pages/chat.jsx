@@ -22,7 +22,7 @@ export default class Chat extends React.Component {
 
   enterSubmit(event) {
     if (event.keyCode === 13) {
-      const comment = new Date(Date.now());
+      const comment = new Date();
       const sentTime = format(comment, 'hh:mmb');
       const messageData = {
         author: this.props.username,
@@ -40,7 +40,7 @@ export default class Chat extends React.Component {
   }
 
   sendMessage() {
-    const comment = new Date(Date.now());
+    const comment = new Date();
     const sentTime = format(comment, 'hh:mmb');
     const messageData = {
       author: this.props.username,

@@ -261,7 +261,7 @@ button:hover {
 
 .extra-info,
 .event-caption {
-  padding: 1rem 1.5rem 1.25rem;
+  padding: 1rem 1.5rem 0;
   color: var(--default);
 }
 
@@ -430,6 +430,8 @@ i:hover {
 .caption {
   color: rgb(160 146 70);
   font-weight: bold;
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .time-ago {
@@ -445,7 +447,7 @@ i:hover {
 /* Nav bar continuation */
 
 .nav-header {
-  flex-basis: 60%;
+  flex-basis: 55%;
   justify-content: center;
   color: var(--default);
   align-self: center;
@@ -695,4 +697,62 @@ i:hover {
   color: var(--default);
   margin-top: 2rem;
   font-weight: bolder;
+}
+
+.attending {
+  position: relative;
+  bottom: 4rem;
+}
+
+.attending button {
+  border-radius: 10rem;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #3bbb62;
+  color: white;
+  font-weight: bold;
+  box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 33%);
+}
+
+
+/* Event Attendees */
+
+.attendee-photo {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  margin: 0.25rem;
+}
+
+.comment-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comment-message {
+  position: relative;
+  bottom: 1.5rem;
+  left: 1rem;
+}
+
+.comment-username {
+  color: var(--highlight);
+  font-weight: bolder;
+}
+
+.comment-user-left {
+  margin: 0;
+}
+
+.comment-photo-header {
+  position: absolute;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  top: 5px;
 }

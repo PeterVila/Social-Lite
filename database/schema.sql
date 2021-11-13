@@ -27,6 +27,7 @@ CREATE TABLE "public"."comments" (
   "username" TEXT NOT NULL,
 	"content" TEXT NOT NULL,
 	"postId" INTEGER NOT NULL,
+  "avatarUrl" TEXT NOT NULL,
 	"createdAt" timestamptz NOT NULL default now()
 ) WITH (
   OIDS=FALSE
@@ -36,6 +37,7 @@ CREATE TABLE "public"."comments" (
 
 CREATE TABLE "public"."posts" (
 	"userId" serial NOT NULL,
+  "avatarUrl" TEXT,
 	"postId" serial NOT NULL,
   "postTitle" TEXT NOT NULL,
 	"postType" TEXT NOT NULL,
@@ -53,9 +55,11 @@ CREATE TABLE "public"."posts" (
 
 
 CREATE TABLE "public"."eventAttendees" (
-	"userId" serial NOT NULL,
+	"userId" serial NOT NULL UNIQUE,
 	"postId" serial NOT NULL,
-	"attendeeId" serial NOT NULL
+	"attendeeId" serial NOT NULL UNIQUE,
+  "avatarUrl" TEXT NOT NULL,
+	CONSTRAINT "eventAttendees_pk" PRIMARY KEY ("userId", "attendeeId")
 ) WITH (
   OIDS=FALSE
 );

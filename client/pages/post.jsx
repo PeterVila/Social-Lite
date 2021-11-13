@@ -76,6 +76,8 @@ export default class App extends React.Component {
     formData.append('location', this.state.location);
     formData.append('postType', this.state.postType);
     formData.append('postTitle', this.state.postTitle);
+    formData.append('userId', this.context.user.userId);
+    formData.append('avatarUrl', this.context.user.avatarUrl);
     if (this.state.postType === 'event') {
       const timestampStart = new Date(this.state.eventDate).toISOString();
       const timestampEnd = new Date(this.state.endTime).toISOString();

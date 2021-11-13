@@ -44,17 +44,18 @@ app.post('/api/comments/', (req, res, next) => {
     userId,
     content,
     postId,
-    username
+    username,
+    avatarUrl
   } = req.body;
   if (!content || !postId) {
     throw new ClientError(400, 'postId and content');
   }
   const sql = `
-    insert into "comments" ("userId", "content", "postId", "username")
-    values ($1, $2, $3, $4)
+    insert into "comments" ("userId", "content", "postId", "username", "avatarUrl")
+    values ($1, $2, $3, $4, $5)
     returning *
   `;
-  const params = [userId, content, postId, username];
+  const params = [userId, content, postId, username, avatarUrl];
   db.query(sql, params)
     .then(result => {
       const [user] = result.rows;
@@ -67,13 +68,14 @@ app.post('/api/comments/', (req, res, next) => {
 
 app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
   const {
-    userId = 2,
-    postType,
-    caption,
-    location,
-    eventDate,
-    postTitle,
-    endTime
+      userId,
+      postType,
+      caption,
+      location,
+      eventDate,
+      postTitle,
+      endTime,
+      avatarUrl
   } = req.body;
   if (!userId || !postType || !location || !postTitle) {
     throw new ClientError(400, 'userId, postType, location, postTitle are required fields');
@@ -83,11 +85,11 @@ app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
   }
   const imageUrl = '/images/' + req.file.filename;
   const sql = `
-    insert into "posts" ("userId", "postType", "imageUrl", "caption", "location", "eventDate", "postTitle", "endTime")
-    values ($1, $2, $3, $4, $5, $6, $7, $8)
+    insert into "posts" ("userId", "postType", "imageUrl", "caption", "location", "eventDate", "postTitle", "endTime", "avatarUrl")
+    values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
     returning *
   `;
-  const params = [userId, postType, imageUrl, caption, location, eventDate, postTitle, endTime];
+  const params = [userId, postType, imageUrl, caption, location, eventDate, postTitle, endTime, avatarUrl];
   db.query(sql, params)
     .then(result => {
       const [upload] = result.rows;
@@ -100,11 +102,13 @@ app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
 
 app.get('/api/posts', (req, res, next) => {
   const sql = `
-  SELECT "postId", "posts"."userId", "postTitle", "postType", "imageUrl", "caption", "eventDate", "endTime", "location", "posts"."createdAt",
-    JSON_AGG("comments".*) FILTER (WHERE "comments" is not null) as "comments"
+  SELECT "posts"."postId", "posts"."userId", "postTitle", "postType", "imageUrl", "caption", "eventDate", "endTime", "location", "posts"."createdAt", "posts"."avatarUrl",
+    JSON_AGG("comments".*) FILTER (WHERE "comments" is not null) as "comments",
+    JSON_AGG("eventAttendees".*) FILTER (WHERE "eventAttendees" is not null) as "eventAttendees"
   FROM "posts"
   left JOIN "comments" USING ("postId")
-  group by "postId"
+  left JOIN "eventAttendees" using ("postId")
+  group by "posts"."postId"
   order by "posts"."createdAt"
   `;
   db.query(sql)
@@ -159,7 +163,10 @@ app.post('/api/auth/sign-up', uploadsMiddleware, (req, res, next) => {
 });
 
 app.post('/api/auth/sign-in', (req, res, next) => {
-  const { username, password } = req.body;
+  const {
+    username,
+    password
+  } = req.body;
   if (!username || !password) {
     throw new ClientError(401, 'invalid login');
   }
@@ -175,21 +182,75 @@ app.post('/api/auth/sign-in', (req, res, next) => {
       if (!user) {
         throw new ClientError(401, 'invalid login');
       }
-      const { userId, hashedPassword, username, displayName, avatarUrl, description } = user;
+      const {
+        userId,
+        hashedPassword,
+        username,
+        displayName,
+        avatarUrl,
+        description
+      } = user;
       return argon2
         .verify(hashedPassword, password)
         .then(isMatching => {
           if (!isMatching) {
             throw new ClientError(401, 'invalid login');
           }
-          const payload = { userId, username, displayName, avatarUrl, description };
+          const payload = {
+            userId,
+            username,
+            displayName,
+            avatarUrl,
+            description
+          };
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
-          res.json({ token, user: payload });
+          res.json({
+            token,
+            user: payload
+          });
         });
     })
     .catch(err => next(err));
 });
 
+app.get('/api/eventAttendees', (req, res, next) => {
+  const sql = `
+  select "userId", "postId", "avatarUrl", "attendeeId"
+    from "eventAttendees"
+    join "users" using ("userId")
+    order by "attendeeId"
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/eventAttendees', (req, res, next) => {
+  const {
+    userId,
+    postId,
+    avatarUrl
+  } = req.body;
+  if (!userId || !postId) {
+    throw new ClientError(401, 'Missing userId and/or postId')
+  }
+  const sql = `
+    insert into "eventAttendees" ("userId", "postId", "avatarUrl")
+    values ($1, $2, $3)
+    returning *
+  `
+  const params = [userId, postId, avatarUrl];
+  db.query(sql, params)
+    .then(result => {
+      const [attendee] = result.rows;
+      res.status(201).json(attendee);
+    })
+    .catch(err => {
+      next(err);
+    });
+});
 app.use(errorMiddleware);
 server.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console

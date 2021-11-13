@@ -176,4 +176,9 @@
   .create-password {
     margin: 0 12.5%;
   }
+
+  .attending {
+    position: relative;
+    bottom: 3rem;
+  }
 }

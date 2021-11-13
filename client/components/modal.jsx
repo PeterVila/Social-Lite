@@ -20,7 +20,8 @@ class Modal extends React.Component {
       postId: this.props.postId,
       content: this.state.comment,
       userId: this.context.user.userId,
-      username: this.context.user.username
+      username: this.context.user.username,
+      avatarUrl: this.context.user.avatarUrl
     };
     this.setState({
       comment: null,

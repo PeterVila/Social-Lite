@@ -55,6 +55,10 @@ export default class Login extends React.Component {
 
 function StartRegistration(props) {
   return (
+    <>
+    <div className="row login-title">
+      <h1>Social Lite</h1>
+    </div>
     <div className="log">
       <form onSubmit={props.handleSubmit}>
           <div className="login">
@@ -76,6 +80,7 @@ function StartRegistration(props) {
         </div>
       </form>
     </div>
+    </>
   );
 }
 

@@ -68,14 +68,14 @@ app.post('/api/comments/', (req, res, next) => {
 
 app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
   const {
-      userId,
-      postType,
-      caption,
-      location,
-      eventDate,
-      postTitle,
-      endTime,
-      avatarUrl
+    userId,
+    postType,
+    caption,
+    location,
+    eventDate,
+    postTitle,
+    endTime,
+    avatarUrl
   } = req.body;
   if (!userId || !postType || !location || !postTitle) {
     throw new ClientError(400, 'userId, postType, location, postTitle are required fields');
@@ -103,7 +103,7 @@ app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
 app.get('/api/posts', (req, res, next) => {
   const sql = `
   SELECT "posts"."postId", "posts"."userId", "postTitle", "postType", "imageUrl", "caption", "eventDate", "endTime", "location", "posts"."createdAt", "posts"."avatarUrl",
-    JSON_AGG("comments".*) FILTER (WHERE "comments" is not null) as "comments",
+    JSON_AGG("comments".* ORDER BY "comments"."createdAt") FILTER (WHERE "comments" is not null) as "comments",
     JSON_AGG("eventAttendees".*) FILTER (WHERE "eventAttendees" is not null) as "eventAttendees"
   FROM "posts"
   left JOIN "comments" USING ("postId")
@@ -195,19 +195,20 @@ app.post('/api/auth/sign-in', (req, res, next) => {
         .then(isMatching => {
           if (!isMatching) {
             throw new ClientError(401, 'invalid login');
+          } else {
+            const payload = {
+              userId,
+              username,
+              displayName,
+              avatarUrl,
+              description
+            };
+            const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+            res.json({
+              token,
+              user: payload
+            });
           }
-          const payload = {
-            userId,
-            username,
-            displayName,
-            avatarUrl,
-            description
-          };
-          const token = jwt.sign(payload, process.env.TOKEN_SECRET);
-          res.json({
-            token,
-            user: payload
-          });
         });
     })
     .catch(err => next(err));
@@ -251,6 +252,31 @@ app.post('/api/eventAttendees', (req, res, next) => {
       next(err);
     });
 });
+
+app.delete('/api/eventAttendees', (req, res, next) => {
+  const {
+    userId,
+    postId
+  } = req.body
+  if (!userId || !postId) {
+    throw new ClientError(401, 'Missing userId and/or postId')
+  }
+  const sql = `
+    delete from "eventAttendees"
+     where "userId" = $1
+       and "postId" = $2
+  `;
+  const params = [userId, postId];
+  db.query(sql, params)
+    .then(result => {
+      const [attendee] = result.rows;
+      res.status(201).json(attendee);
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
 app.use(errorMiddleware);
 server.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console

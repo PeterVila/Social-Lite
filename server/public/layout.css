@@ -158,23 +158,30 @@
   }
 
   .upload-image {
-    width: 20rem;
-    height: 20rem;
+    width: 15rem;
+    height: 15rem;
   }
 
   .registration-photo {
-    width: 20rem;
-    height: 20rem;
+    width: 15rem;
+    height: 15rem;
   }
 
   .profile-image-upload {
-    width: 20rem;
-    height: 20rem;
+    width: 15rem;
+    height: 15rem;
   }
 
   .create-username,
   .create-password {
     margin: 0 12.5%;
+  }
+
+  .chat-window {
+    width: 60%;
+    margin-top: 1rem;
+    border: 1px solid black;
+    border-radius: 5px;
   }
 
   .attending {

@@ -13,7 +13,8 @@ export default class Register extends React.Component {
       displayName: null,
       info: null,
       img: null,
-      file: null
+      file: null,
+      finishedRegistration: false
     };
     this.usernameChange = this.usernameChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
@@ -77,7 +78,8 @@ export default class Register extends React.Component {
           displayName: null,
           info: null,
           img: null,
-          file: null
+          file: null,
+          finishedRegistration: true
         });
       })
       .catch(err => {
@@ -116,6 +118,7 @@ export default class Register extends React.Component {
 
   render() {
     if (this.context.user) return <Redirect to="" />;
+    if (this.state.finishedRegistration) return <Redirect to="login" />;
     const firstPage = this.state.firstPage
       ? <StartRegistration firstSubmit={this.firstSubmit} usernameChange={this.usernameChange} passwordChange={this.passwordChange}/>
       : <FinishRegistration fileInputRef={this.fileInputRef} fileChangedHandler={this.fileChangedHandler} img={this.state.img} finishRegistration={this.finishRegistration} displayNameChange={this.displayNameChange} infoChange={this.infoChange}/>;
@@ -129,6 +132,10 @@ export default class Register extends React.Component {
 
 function StartRegistration(props) {
   return (
+    <>
+    <div className="row login-title">
+      <h1>Social Lite</h1>
+    </div>
     <div className="log">
       <form onSubmit={props.firstSubmit}>
           <div className="login">
@@ -150,8 +157,10 @@ function StartRegistration(props) {
         </div>
       </form>
     </div>
+    </>
   );
 }
+
 function FinishRegistration(props) {
   const isUploaded = (
     <div className="absolute center-element add-profile-button">

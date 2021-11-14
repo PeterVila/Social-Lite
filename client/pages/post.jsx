@@ -10,11 +10,12 @@ export default class App extends React.Component {
       caption: '',
       location: '',
       postType: 'memory',
-      file: null,
-      eventDate: '',
       postTitle: '',
-      endTime: '',
-      img: null
+      eventDate: '',
+      endDate: '',
+      file: null,
+      img: null,
+      finishedPost: false
     };
     this.fileInputRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -80,9 +81,9 @@ export default class App extends React.Component {
     formData.append('avatarUrl', this.context.user.avatarUrl);
     if (this.state.postType === 'event') {
       const timestampStart = new Date(this.state.eventDate).toISOString();
-      const timestampEnd = new Date(this.state.endTime).toISOString();
+      const timestampEnd = new Date(this.state.endDate).toISOString();
       formData.append('eventDate', timestampStart);
-      formData.append('endTime', timestampEnd);
+      formData.append('endDate', timestampEnd);
     }
     formData.append('image', this.state.file);
     fetch('/api/posts', {
@@ -98,10 +99,10 @@ export default class App extends React.Component {
           file: null,
           eventDate: '',
           postTitle: '',
-          endTime: '',
-          img: null
+          endDate: '',
+          img: null,
+          finishedPost: true
         });
-        this.fileInputRef.current.value = null;
       })
       .catch(err => {
         throw err;
@@ -112,7 +113,7 @@ export default class App extends React.Component {
     this.setState({
       postType: 'memory',
       eventDate: '',
-      endTime: ''
+      endDate: ''
     });
   }
 
@@ -128,13 +129,13 @@ export default class App extends React.Component {
 
   handleEndTime(event) {
     this.setState({
-      endTime: event.target.value.substr(0, 16)
+      endDate: event.target.value.substr(0, 16)
     });
   }
 
   render() {
+    if (this.state.finishedPost) return <Redirect to="#" />;
     if (!this.context.user) return <Redirect to="login" />;
-
     const eventClicked = this.state.postType === 'event' ? 'event-button clicked' : 'event-button white-button';
     const memoryClicked = this.state.postType === 'memory' ? 'memory-button clicked' : 'memory-button white-button';
     const isUploaded = !this.state.file
@@ -158,7 +159,7 @@ export default class App extends React.Component {
             ? <div className="date-form row">
               <h3>When?</h3>
               <input className="date-input text-center" type="datetime-local" id="eventDate" name="eventDate" value={this.state.eventDate} onChange={this.handleEventChange}/>
-              <input className="date-input text-center" type="datetime-local" id="endTime" name="endTime" value={this.state.endTime} onChange={this.handleEndTime}/>
+              <input className="date-input text-center" type="datetime-local" id="endDate" name="endDate" value={this.state.endDate} onChange={this.handleEndTime}/>
           </div>
             : undefined}
           <div className="location-form row">

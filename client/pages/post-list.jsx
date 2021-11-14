@@ -3,7 +3,6 @@ import { format, formatDistance } from 'date-fns';
 import Modal from '../components/modal';
 import AppContext from '../lib/app-context';
 
-
 class Post extends React.Component {
   constructor(props) {
     super(props);
@@ -16,14 +15,7 @@ class Post extends React.Component {
     };
     this.addComment = this.addComment.bind(this);
     this.cancelComment = this.cancelComment.bind(this);
-    this.toggleAttending = this.toggleAttending.bind(this);
     this.attendingEvent = this.attendingEvent.bind(this);
-  }
-
-  toggleAttending() {
-    this.setState(prevState => ({
-      isAttending: !prevState.isAttending
-    }));
   }
 
   addComment(comment) {
@@ -64,34 +56,45 @@ class Post extends React.Component {
   }
 
   attendingEvent() {
-    const obj = {
-      userId: this.context.user.userId,
-      postId: this.state.postId,
-      avatarUrl: this.context.user.avatarUrl
-    };
-    fetch('/api/eventAttendees', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (this.state.eventAttendees === null) {
-          this.setState({
-            eventAttendees: []
-          });
-        }
-        if (data.userId) {
-          this.setState({
-            eventAttendees: this.state.eventAttendees.concat(data)
-          });
-        }
+    if (!this.state.isAttending) {
+      const obj = {
+        userId: this.context.user.userId,
+        postId: this.state.postId,
+        avatarUrl: this.context.user.avatarUrl
+      };
+      fetch('/api/eventAttendees', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj)
       })
-      .catch(error => {
-        console.error('Error:', error);
+        .then(response => response.json())
+        .then(data => {
+          if (this.state.eventAttendees === null) {
+            this.setState({
+              eventAttendees: []
+            });
+          }
+          if (data.userId) {
+            this.setState({
+              eventAttendees: this.state.eventAttendees.concat(data),
+              isAttending: true
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  }
+
+  componentDidMount() {
+    if (!this.state.eventAttendees) {
+      this.setState({
+        eventAttendees: []
       });
+    }
   }
 
   render() {
@@ -100,8 +103,8 @@ class Post extends React.Component {
     const endDate = new Date(endTime);
     const formatDay = format(date, 'do');
     const formatMonth = format(date, 'LLLL');
-    const formatStartTime = format(date, 'hh:mmb');
-    const formatEndTime = format(endDate, 'hh:mmb');
+    const formatStartTime = format(date, 'eee hh:mmb');
+    const formatEndTime = format(endDate, 'eee hh:mmb');
     const messages = this.state.comments && this.state.comments.map((comment, index) => {
       const commentDate = new Date(comment.createdAt);
       const formatComment = formatDistance(new Date(), new Date(commentDate));
@@ -116,14 +119,15 @@ class Post extends React.Component {
         <div key={index}>{match}</div>
       );
     });
-    const eventAttendeesList = eventDate && this.state.eventAttendees.map((attendee, index) => {
+    const eventAttendeesList = this.state.eventAttendees && this.state.eventAttendees.map((attendee, index) => {
       const photo = attendee.avatarUrl;
       return (
         <img className="attendee-photo" src={photo} key={index}/>
       );
     });
+
     const memoryComment = !eventDate && <div className="row add-comment"><button onClick={() => this.toggleComment()}>Add a Comment</button></div>;
-    const eventDateElement = eventDate && <div className="event-date">
+    const eventDateCircle = eventDate && <div className="event-date">
         <div className="row justify-center">
             <h1>{formatDay}</h1>
         </div>
@@ -131,9 +135,9 @@ class Post extends React.Component {
             <h3>{formatMonth.substr(0, 3)}</h3>
         </div>
     </div>;
-    const eventTimeElement = endTime && <div className="row">
+    const eventDuration = eventDate && <div className="row">
        <h4 className="event-time">{formatStartTime} - {formatEndTime}</h4>
-       <h4 className="event-planning"><span>{this.state.eventAttendees.length}</span> Attendees</h4>
+       <h4 className="event-planning"><span>{this.state.eventAttendees && this.state.eventAttendees.length}</span> Attendees</h4>
       </div>;
     const cardHeader = eventDate && <div className="card-title row">
         <h4>{location}</h4>
@@ -162,13 +166,13 @@ class Post extends React.Component {
           <div className="event card">
             { eventHeader }
             { memoryOrEvent }
-            { eventDateElement }
+            { eventDateCircle }
             { cardHeader }
-            { eventTimeElement }
+            { eventDuration }
             <div className="event-caption">
                 <p className="caption">{caption}</p>
-                    { messages }
-                    {eventAttendeesList}
+                { messages }
+                {eventAttendeesList}
             </div>
         </div>
         {eventAttendingButton}

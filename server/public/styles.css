@@ -275,11 +275,13 @@ button:hover {
 }
 
 .event-time {
-  flex-basis: 50%;
+  flex-basis: 60%;
+  padding-left: 1.25rem;
 }
 
 .event-planning {
-  flex-basis: 50%;
+  flex-basis: 40%;
+  padding-left: 1.25rem;
 }
 
 .event-planning span {
@@ -320,7 +322,7 @@ footer {
   background: linear-gradient(90deg, rgb(28 39 59 / 100%) 50%, rgb(69 78 92 / 100%) 100%);
   border: 5px solid var(--dark-color-a);
   border-radius: 50%;
-  padding: 1rem;
+  padding: 0.9rem;
 }
 
 /* Header navigation */
@@ -476,7 +478,7 @@ i:hover {
   color: white;
   padding: 3rem;
   box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 88%);
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 
 .login input,
@@ -755,4 +757,21 @@ i:hover {
   object-fit: cover;
   border-radius: 50%;
   top: 5px;
+}
+
+.welcome-user {
+  font-family: cursive;
+  font-size: 1.5rem;
+  color: var(--highlight);
+}
+
+.login-title {
+  margin-top: 2rem;
+}
+
+.login-title h1 {
+  font-weight: bolder;
+  color: white;
+  text-shadow: 4px 4px 0px var(--dark-color-a);
+  font-size: 3rem;
 }

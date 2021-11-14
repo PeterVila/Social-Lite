@@ -4,6 +4,7 @@ import Login from './pages/login';
 import Register from './pages/register';
 import Post from './pages/post';
 import Chat from './pages/chat';
+import EventHome from './pages/eventpage';
 import AppContext from './lib/app-context';
 import decodeToken from './lib/decode-token';
 import Navigation from './components/nav-drawer';
@@ -61,8 +62,10 @@ export default class App extends React.Component {
       return <Post />;
     }
     if (route.path === 'Chat') {
-      const avatarUrl = this.state.user.avatarUrl;
-      return <Chat username={this.state.user.displayName} avatar={avatarUrl}/>;
+      return <Chat/>;
+    }
+    if (route.path === 'Events') {
+      return <EventHome />;
     }
   }
 

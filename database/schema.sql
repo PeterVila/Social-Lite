@@ -55,7 +55,7 @@ CREATE TABLE "public"."posts" (
 
 
 CREATE TABLE "public"."eventAttendees" (
-	"userId" serial NOT NULL UNIQUE,
+	"userId" serial NOT NULL,
 	"postId" serial NOT NULL,
 	"attendeeId" serial NOT NULL UNIQUE,
   "avatarUrl" TEXT NOT NULL,

@@ -20,60 +20,38 @@ class Events extends React.Component {
     }));
   }
 
-  addComment(comment) {
-    fetch('/api/comments', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(comment)
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (this.state.comments === null) {
-          this.setState({
-            comments: []
-          });
-        }
-        this.setState({
-          comments: this.state.comments.concat(data),
-          isCommenting: false
-        });
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  }
-
   attendingEvent() {
-    const obj = {
-      userId: this.context.user.userId,
-      postId: this.state.postId,
-      avatarUrl: this.context.user.avatarUrl
-    };
-    fetch('/api/eventAttendees', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (this.state.eventAttendees === null) {
-          this.setState({
-            eventAttendees: []
-          });
-        }
-        if (data.userId) {
-          this.setState({
-            eventAttendees: this.state.eventAttendees.concat(data)
-          });
-        }
+    if (!this.state.isAttending) {
+      const obj = {
+        userId: this.context.user.userId,
+        postId: this.state.postId,
+        avatarUrl: this.context.user.avatarUrl
+      };
+      fetch('/api/eventAttendees', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj)
       })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+        .then(response => response.json())
+        .then(data => {
+          if (this.state.eventAttendees === null) {
+            this.setState({
+              eventAttendees: []
+            });
+          }
+          if (data.userId) {
+            this.setState({
+              eventAttendees: this.state.eventAttendees.concat(data),
+              isAttending: true
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
   }
 
   render() {

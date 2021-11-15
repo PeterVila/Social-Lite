@@ -14,8 +14,7 @@ export default class App extends React.Component {
       eventDate: '',
       endDate: '',
       file: null,
-      img: null,
-      finishedPost: false
+      img: null
     };
     this.fileInputRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,6 +26,50 @@ export default class App extends React.Component {
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleEndTime = this.handleEndTime.bind(this);
     this.fileChangedHandler = this.fileChangedHandler.bind(this);
+  }
+
+  toggleMemory() {
+    this.setState({
+      postType: 'memory',
+      eventDate: '',
+      endDate: ''
+    });
+  }
+
+  toggleEvent() {
+    this.setState({
+      postType: 'event'
+    });
+  }
+
+  handleTitleChange(event) {
+    this.setState({
+      postTitle: event.target.value
+    });
+  }
+
+  handleCaptionChange(event) {
+    this.setState({
+      caption: event.target.value
+    });
+  }
+
+  handleLocationChange(event) {
+    this.setState({
+      location: event.target.value
+    });
+  }
+
+  handleEventChange(event) {
+    this.setState({
+      eventDate: event.target.value.substr(0, 16)
+    });
+  }
+
+  handleEndTime(event) {
+    this.setState({
+      endDate: event.target.value.substr(0, 16)
+    });
   }
 
   fileChangedHandler(event) {
@@ -58,18 +101,6 @@ export default class App extends React.Component {
     }
   }
 
-  handleCaptionChange(event) {
-    this.setState({ caption: event.target.value });
-  }
-
-  handleLocationChange(event) {
-    this.setState({ location: event.target.value });
-  }
-
-  handleTitleChange(event) {
-    this.setState({ postTitle: event.target.value });
-  }
-
   handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData();
@@ -83,7 +114,7 @@ export default class App extends React.Component {
       const timestampStart = new Date(this.state.eventDate).toISOString();
       const timestampEnd = new Date(this.state.endDate).toISOString();
       formData.append('eventDate', timestampStart);
-      formData.append('endDate', timestampEnd);
+      formData.append('endTime', timestampEnd);
     }
     formData.append('image', this.state.file);
     fetch('/api/posts', {
@@ -100,8 +131,7 @@ export default class App extends React.Component {
           eventDate: '',
           postTitle: '',
           endDate: '',
-          img: null,
-          finishedPost: true
+          img: null
         });
       })
       .catch(err => {
@@ -109,32 +139,7 @@ export default class App extends React.Component {
       });
   }
 
-  toggleMemory() {
-    this.setState({
-      postType: 'memory',
-      eventDate: '',
-      endDate: ''
-    });
-  }
-
-  toggleEvent() {
-    this.setState({ postType: 'event' });
-  }
-
-  handleEventChange(event) {
-    this.setState({
-      eventDate: event.target.value.substr(0, 16)
-    });
-  }
-
-  handleEndTime(event) {
-    this.setState({
-      endDate: event.target.value.substr(0, 16)
-    });
-  }
-
   render() {
-    if (this.state.finishedPost) return <Redirect to="#" />;
     if (!this.context.user) return <Redirect to="login" />;
     const eventClicked = this.state.postType === 'event' ? 'event-button clicked' : 'event-button white-button';
     const memoryClicked = this.state.postType === 'memory' ? 'memory-button clicked' : 'memory-button white-button';
@@ -148,20 +153,20 @@ export default class App extends React.Component {
       <div className="container">
         <form className="memory-form" onSubmit={this.handleSubmit}>
           <div className="image-upload">
-                { isUploaded }
-                { imgPreview }
+            { isUploaded }
+            { imgPreview }
           </div>
           <div className="post-buttons row">
-              <button onClick={this.toggleMemory} type="button" className={memoryClicked}>Memory</button>
-              <button onClick={this.toggleEvent} type="button" className={eventClicked}>Event</button>
+            <button onClick={this.toggleMemory} type="button" className={memoryClicked}>Memory</button>
+            <button onClick={this.toggleEvent} type="button" className={eventClicked}>Event</button>
           </div>
-          {this.state.postType === 'event'
-            ? <div className="date-form row">
+          {this.state.postType === 'event' &&
+            <div className="date-form row">
               <h3>When?</h3>
               <input className="date-input text-center" type="datetime-local" id="eventDate" name="eventDate" value={this.state.eventDate} onChange={this.handleEventChange}/>
               <input className="date-input text-center" type="datetime-local" id="endDate" name="endDate" value={this.state.endDate} onChange={this.handleEndTime}/>
-          </div>
-            : undefined}
+            </div>
+          }
           <div className="location-form row">
               <h3>Title</h3>
               <input className="location-input" type="text" required id="postTitle" name="postTitle" value={this.state.postTitle} onChange={this.handleTitleChange}/>

@@ -1,13 +1,14 @@
 insert into "users" ("username", "hashedPassword", "displayName", "avatarUrl", "description")
-values ('debby', 'debby', 'debby', '/images/debby.png', 'debby')
-;
+values ('debby', 'debby', 'debby', '/images/debby.png', 'debby'),
+('jc', 'jc', 'jc', '/images/jc.jpg', 'jc');
 
 insert into "posts" ("userId", "postType", "postTitle", "imageUrl", "caption", "eventDate", "endTime", "location", "avatarUrl")
-values (1, 'event', 'This is an event-type post 😄', '/images/dao-trong-le-reindeer.jpg', 'You cant comment on events but you can on memories-type posts!', '2021-11-09T07:42:00Z', '2021-11-09T07:42:00Z', 'LearningFuze', '/images/image-1636852359913.JPEG');
+values (1, 'event', 'This is an event-type post 😄', '/images/lfz.jpeg', 'You cant comment on events but you can on memory-type posts!', '2021-11-15T18:00:00Z', '2021-11-16T02:00:00Z', 'LearningFuze', '/images/peter.jpeg');
 
 insert into "eventAttendees" ("userId", "postId", "avatarUrl")
-values(1, 1, '/images/debby.png');
+values(1, 1, '/images/debby.png'),
+(2,1,'/images/jc.jpg');
 
 insert into "chatroom" ("userId", "message", "chatroomName")
-values (1, 'hello ooOoo', '626nightMarket');
+values (1, 'chat message', '626nightMarket');
 

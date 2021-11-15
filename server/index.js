@@ -25,7 +25,7 @@ io.on('connection', socket => {
   console.log(`User Connected: ${socket.id}`);
   socket.on('join_room', data => {
     socket.join(data);
-    console.log(`User with ID: ${socket.id}, user:${data} joined!`);
+    console.log(`User with ID: ${socket.id} joined the chatroom!`);
   });
   socket.on('send_message', data => {
     console.log(data);
@@ -271,6 +271,36 @@ app.delete('/api/eventAttendees', (req, res, next) => {
     .then(result => {
       const [attendee] = result.rows;
       res.status(201).json(attendee);
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
+app.delete('/api/posts/:postId', (req, res, next) => {
+  const postId = parseInt(req.params.postId, 10);
+  if (!Number.isInteger(postId) || postId < 1) {
+    res.status(400).json({
+      error: 'postId must be a positive integer'
+    });
+    return;
+  }
+  const sql = `
+    DELETE from "posts"
+     where "postId" = $1
+     returning *
+  `;
+  const params = [postId];
+  db.query(sql, params)
+    .then(result => {
+      const [post] = result.rows;
+      if (!post) {
+        res.status(404).json({
+          error: `cannot find todo with todoId ${postId}`
+        });
+        return;
+      }
+      res.json(post);
     })
     .catch(err => {
       next(err);

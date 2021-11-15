@@ -25,8 +25,12 @@ export default class App extends React.Component {
 
   handleSignIn(result) {
     const { user, token } = result;
-    window.localStorage.setItem('react-context-jwt', token);
-    this.setState({ user });
+    if (token) {
+      window.localStorage.setItem('react-context-jwt', token);
+      this.setState({
+        user
+      });
+    }
   }
 
   handleSignOut() {

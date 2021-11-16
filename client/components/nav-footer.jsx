@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 
 class AppDrawer extends React.Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class AppDrawer extends React.Component {
   }
 
   render() {
+    const { handleSignOut } = this.context;
+
     return (
     <footer>
       <div className="row justify-center">
@@ -23,16 +26,16 @@ class AppDrawer extends React.Component {
           <a href="#"><i className="fas fa-home"></i></a>
         </div>
         <div className="icon text-center">
-          <a href="#Profile"><i className="fas fa-user"></i></a>
+          <a href="#Events"><i className="fas fa-calendar-week"></i></a>
         </div>
         <div className="post-icon text-center">
           <a href="#Post"><i className="fas fa-camera"></i></a>
         </div>
         <div className="icon text-center">
-          <a href="#idk">?</a>
+          <a href="#Chat"><i className="fas fa-comment"></i></a>
         </div>
         <div className="icon text-center">
-          <a href="#Chat"><i className="fas fa-comment"></i></a>
+          <a><i onClick={handleSignOut} className="fas fa-sign-out-alt"></i></a>
         </div>
       </div>
     </footer>
@@ -40,4 +43,5 @@ class AppDrawer extends React.Component {
   }
 }
 
+AppDrawer.contextType = AppContext;
 export default AppDrawer;

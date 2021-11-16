@@ -1,6 +1,8 @@
 import React from 'react';
 import io from 'socket.io-client';
 import { format } from 'date-fns';
+import Redirect from '../components/redirect';
+import AppContext from '../lib/app-context';
 
 export default class Chat extends React.Component {
   constructor(props) {
@@ -25,11 +27,11 @@ export default class Chat extends React.Component {
       const comment = new Date();
       const sentTime = format(comment, 'hh:mmb');
       const messageData = {
-        author: this.props.username,
+        author: this.context.user.displayName,
         message: this.state.message,
         time: sentTime,
         room: 'Public',
-        avatar: this.props.avatar
+        avatar: this.context.user.avatarUrl
       };
       this.socket.emit('send_message', messageData);
       this.setState({
@@ -43,11 +45,11 @@ export default class Chat extends React.Component {
     const comment = new Date();
     const sentTime = format(comment, 'hh:mmb');
     const messageData = {
-      author: this.props.username,
+      author: this.context.user.displayName,
       message: this.state.message,
       time: sentTime,
       room: 'Public',
-      avatar: this.props.avatar
+      avatar: this.context.user.avatarUrl
     };
     this.socket.emit('send_message', messageData);
     this.setState({
@@ -71,6 +73,8 @@ export default class Chat extends React.Component {
   }
 
   render() {
+    if (!this.context.user) return <Redirect to="login" />;
+
     return (
         <div className="chat-window">
             <div className="chat-header">
@@ -83,7 +87,7 @@ export default class Chat extends React.Component {
               <div
                 key={index}
                 className="message"
-                id={this.props.username === messageContent.author ? 'you' : 'other'}
+                id={this.context.user.displayName === messageContent.author ? 'you' : 'other'}
               >
                 <div className="message-row">
                   <img src={messageContent.avatar}/>
@@ -108,3 +112,5 @@ export default class Chat extends React.Component {
     );
   }
 }
+
+Chat.contextType = AppContext;

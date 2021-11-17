@@ -83,7 +83,7 @@ app.post('/api/posts/', uploadsMiddleware, (req, res, next) => {
   if (!req.file) {
     throw new ClientError(400, 'imageUrl is a required field');
   }
-  const imageUrl = '/images/' + req.file.filename;
+  const imageUrl = req.file.location;
   const sql = `
     insert into "posts" ("userId", "postType", "imageUrl", "caption", "location", "eventDate", "postTitle", "endTime", "avatarUrl")
     values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
@@ -143,7 +143,7 @@ app.post('/api/auth/sign-up', uploadsMiddleware, (req, res, next) => {
   if (!req.file) {
     throw new ClientError(400, 'avatarUrl is a required field');
   }
-  const avatarUrl = '/images/' + req.file.filename;
+  const avatarUrl = req.file.location;
   argon2
     .hash(password)
     .then(hashedPassword => {

@@ -38,7 +38,7 @@ class Events extends React.Component {
         .then(data => {
           if (this.state.eventAttendees === null) {
             this.setState({
-              eventAttendees: []
+              eventAttendees: null
             });
           }
           if (data.userId) {
@@ -62,7 +62,8 @@ class Events extends React.Component {
     const formatMonth = format(date, 'LLLL');
     const formatStartTime = format(date, 'eee hh:mmb');
     const formatEndTime = format(endDate, 'eee hh:mmb');
-    const eventAttendeesList = eventDate && this.state.eventAttendees.map((attendee, index) => {
+    const eventAttendeeslength = this.state.eventAttendees && this.state.eventAttendees.length;
+    const eventAttendeesList = this.state.eventAttendees && this.state.eventAttendees.map((attendee, index) => {
       const photo = attendee.avatarUrl;
       return (
         <img className="attendee-photo" src={photo} key={index}/>
@@ -78,7 +79,7 @@ class Events extends React.Component {
     </div>;
     const eventTimeElement = endTime && <div className="row">
        <h4 className="event-time">{formatStartTime} - {formatEndTime}</h4>
-       <h4 className="event-planning"><span>{this.state.eventAttendees.length}</span> Attendees</h4>
+       <h4 className="event-planning"><span>{eventAttendeeslength}</span> Attendees</h4>
       </div>;
     const cardHeader = eventDate && <div className="card-title row">
         <h4>{location}</h4>

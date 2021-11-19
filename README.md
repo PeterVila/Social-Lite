@@ -2,8 +2,12 @@
 
 A full stack web application for friends who want to share memories and plan out events together. <br />
 
-**Link**
+**Link** <br/ >
 [Social-Lite](https://social-lite-lfz.herokuapp.com/)
+
+![01226d34347ca6937bc6756086e102ac](https://user-images.githubusercontent.com/42393951/142703705-8a2bdc26-a4a5-4ffb-bf3e-ff7f6faebc33.png)
+![ezgif-4-e7c2eb213841](https://user-images.githubusercontent.com/42393951/142703708-be804cf7-aaf6-4f56-a22c-a4544dd69cc9.gif)
+
 
 ## Technologies Used: 
 - React.js

@@ -7,7 +7,8 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      loaded: false
     };
 
   }
@@ -17,7 +18,8 @@ export default class Home extends React.Component {
       fetch('/api/posts/')
         .then(res => res.json())
         .then(data => this.setState({
-          posts: data
+          posts: data,
+          loaded: true
         }));
     }
   }
@@ -25,9 +27,12 @@ export default class Home extends React.Component {
   render() {
 
     if (!this.context.user) return <Redirect to="login" />;
-
+    const loadingSpinner = !this.state.loaded && <div className="lds-dual-ring row"></div>;
+    const emptyPosts = this.state.posts.length === 0 && this.state.loaded && <div className="text-center empty"><h1>There are no posts yet! Try creating one!</h1></div>;
     return (
       <>
+      {loadingSpinner}
+      {emptyPosts}
       <PostList posts={this.state.posts}/>
       </>
     );

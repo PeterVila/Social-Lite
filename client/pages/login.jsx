@@ -12,6 +12,7 @@ export default class Login extends React.Component {
     this.usernameChange = this.usernameChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.demoSignIn = this.demoSignIn.bind(this);
   }
 
   usernameChange() {
@@ -42,12 +43,32 @@ export default class Login extends React.Component {
       });
   }
 
+  demoSignIn(event) {
+    event.preventDefault();
+    const obj = {
+      username: 'demo',
+      password: 'demo'
+    };
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(obj)
+    };
+    fetch('/api/auth/demo-sign-in', req)
+      .then(res => res.json())
+      .then(result => {
+        this.context.handleSignIn(result);
+      });
+  }
+
   render() {
     const { user, route, handleSignIn } = this.context;
     if (user) return <Redirect to="" />;
     return (
       <>
-        <StartRegistration handleSubmit={this.handleSubmit} usernameChange={this.usernameChange} passwordChange={this.passwordChange} key={route.path} action={route.path} onSignIn={handleSignIn}/>
+        <StartRegistration handleSubmit={this.handleSubmit} usernameChange={this.usernameChange} passwordChange={this.passwordChange} key={route.path} action={route.path} onSignIn={handleSignIn} demoSignIn={this.demoSignIn}/>
       </>
     );
   }
@@ -79,6 +100,7 @@ function StartRegistration(props) {
             </div>
         </div>
       </form>
+      <button className="demo-login" onClick={props.demoSignIn}>Demo</button>
     </div>
     </>
   );

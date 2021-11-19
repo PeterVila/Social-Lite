@@ -114,6 +114,7 @@
 
   .modal {
     padding: 5rem;
+    width: 50%;
   }
 
   .modal-text textarea {
@@ -187,5 +188,13 @@
   .attending {
     position: relative;
     bottom: 3rem;
+  }
+
+  .log .demo-login {
+    background-color: #3bbb62;
+    border-radius: 1.5rem;
+    width: 20rem;
+    height: 3.5rem;
+    margin-top: 3rem;
   }
 }

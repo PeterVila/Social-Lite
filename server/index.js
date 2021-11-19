@@ -214,6 +214,51 @@ app.post('/api/auth/sign-in', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/auth/demo-sign-in', (req, res, next) => {
+  console.log(req.body);
+  const {
+    username = debby,
+      password = debby
+  } = req.body;
+  if (!username || !password) {
+    throw new ClientError(401, 'invalid login');
+  }
+  const sql = `
+    select *
+      from "users"
+     where "username" = $1
+  `;
+  const params = [username];
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      if (!user) {
+        throw new ClientError(401, 'invalid login');
+      }
+      const {
+        userId,
+        username,
+        displayName,
+        avatarUrl,
+        description
+      } = user;
+      const payload = {
+        userId,
+        username,
+        displayName,
+        avatarUrl,
+        description
+      };
+      const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+      res.json({
+        token,
+        user: payload
+      });
+    })
+    .catch(err => next(err));
+});
+
+
 app.get('/api/eventAttendees', (req, res, next) => {
   const sql = `
   select "userId", "postId", "avatarUrl", "attendeeId"

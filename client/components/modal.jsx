@@ -48,8 +48,8 @@ class Modal extends React.Component {
     <div className={closeModal}>
       <div className="modal">
       <form onSubmit={this.handleSubmit}>
+      <h1 className="text-center">Comment</h1>
       <div className="modal-text row">
-            <h1>Comment</h1>
             <textarea onChange={this.commentChange} type="text" name="name" id="name"/>
           </div>
           <div className="row justify-evenly">

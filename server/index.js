@@ -215,7 +215,6 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 });
 
 app.post('/api/auth/demo-sign-in', (req, res, next) => {
-  console.log(req.body);
   const {
     username = debby,
       password = debby

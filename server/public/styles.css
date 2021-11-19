@@ -179,8 +179,6 @@ button:hover {
   font-size: 1rem;
 }
 
-/* Events */
-
 .card {
   width: 95%;
   border-radius: 3rem;
@@ -306,8 +304,6 @@ button:hover {
   color: var(--highlight);
 }
 
-/* footer */
-
 footer {
   position: fixed;
   width: 100%;
@@ -343,7 +339,6 @@ footer {
   padding: 0.9rem;
 }
 
-/* Header navigation */
 .nav {
   background-color: var(--dark-color-a);
   box-shadow: 0 7px 20px 2px rgb(0 0 0 / 30%);
@@ -366,7 +361,6 @@ i:hover {
   cursor: pointer;
 }
 
-/* Side Drawer */
 .nav-slider {
   width: 15rem;
   height: 100vh;
@@ -416,7 +410,6 @@ i:hover {
   box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 33%);
 }
 
-/* Modal */
 .modal-background {
   width: 100%;
   height: 100%;
@@ -464,8 +457,6 @@ i:hover {
   display: inline;
   margin: 0;
 }
-
-/* Nav bar continuation */
 
 .nav-header {
   flex-basis: 55%;
@@ -578,8 +569,6 @@ i:hover {
 .register:hover {
   transform: scale(1.15);
 }
-
-/* Chat */
 
 .chat-window {
   width: 90%;
@@ -729,8 +718,6 @@ i:hover {
   background-color: #228740;
 }
 
-/* Event Attendees */
-
 .attendee-photo {
   width: 75px;
   height: 75px;
@@ -780,7 +767,6 @@ i:hover {
   margin-top: 2rem;
 }
 
-/* Loading Spinner */
 .lds-dual-ring {
   display: inline-block;
   width: 200px;

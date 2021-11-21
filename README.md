@@ -37,13 +37,13 @@ A full stack web application for friends who want to share memories and plan out
 1. User can view profile pages
 2. User can see who is currently online in the chatroom
 
-### System Requirements
+## System Requirements
 
 - VS Code or any similar IDE supporting JavaScript ES6
 - Node.js 10 or higher
 - NPM 6 or higher
 
-### Getting Started
+## Getting Started
 
 1. Clone the repository.
 

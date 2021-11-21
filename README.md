@@ -6,10 +6,11 @@ A full stack web application for friends who want to share memories and plan out
 [Social-Lite](https://social-lite-lfz.herokuapp.com/)
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/42393951/142703705-8a2bdc26-a4a5-4ffb-bf3e-ff7f6faebc33.png" width="45%" height="525px"/>
+  <img src="https://user-images.githubusercontent.com/42393951/142703705-8a2bdc26-a4a5-4ffb-bf3e-ff7f6faebc33.png" width="45%" height="600px"/>
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img src="https://user-images.githubusercontent.com/42393951/142703708-be804cf7-aaf6-4f56-a22c-a4544dd69cc9.gif" width="45%" height="525px"/>
+  <img src="https://user-images.githubusercontent.com/42393951/142703708-be804cf7-aaf6-4f56-a22c-a4544dd69cc9.gif" width="45%" height="600px"/>
 </p>
+
 ## Technologies Used: 
 - React.js
 - Socketio

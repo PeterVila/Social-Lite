@@ -2,6 +2,8 @@ import React from 'react';
 import { format, formatDistance } from 'date-fns';
 import Modal from '../components/modal';
 import AppContext from '../lib/app-context';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 class Post extends React.Component {
   constructor(props) {
@@ -95,6 +97,9 @@ class Post extends React.Component {
         eventAttendees: []
       });
     }
+    AOS.init({
+      duration: 1000
+    });
   }
 
   render() {
@@ -163,7 +168,7 @@ class Post extends React.Component {
     <>
     {this.state.isCommenting && <Modal postId={this.state.postId} addComment={this.addComment} toggleComment={this.toggleComment} isCommenting={this.state.isCommenting} cancelComment={this.cancelComment}/>}
       <div className="container">
-          <div className="event card">
+          <div className="event card" data-aos="fade-down" data-aos-offset="0">
             { eventHeader }
             { memoryOrEvent }
             { eventDateCircle }

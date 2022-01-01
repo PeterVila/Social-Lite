@@ -3,6 +3,8 @@ import io from 'socket.io-client';
 import { format } from 'date-fns';
 import Redirect from '../components/redirect';
 import AppContext from '../lib/app-context';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default class Chat extends React.Component {
   constructor(props) {
@@ -66,6 +68,9 @@ export default class Chat extends React.Component {
         messageList: this.state.messageList.concat(data)
       });
     });
+    AOS.init({
+      duration: 1000
+    });
   }
 
   componentWillUnmount() {
@@ -76,7 +81,7 @@ export default class Chat extends React.Component {
     if (!this.context.user) return <Redirect to="login" />;
 
     return (
-        <div className="chat-window">
+        <div className="chat-window" data-aos="zoom-out-up">
             <div className="chat-header">
                 <p>Social Lite</p>
             </div>

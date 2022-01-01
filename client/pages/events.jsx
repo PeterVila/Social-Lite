@@ -1,6 +1,8 @@
 import React from 'react';
 import { format } from 'date-fns';
 import AppContext from '../lib/app-context';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 class Events extends React.Component {
   constructor(props) {
@@ -12,6 +14,12 @@ class Events extends React.Component {
     };
     this.toggleAttending = this.toggleAttending.bind(this);
     this.attendingEvent = this.attendingEvent.bind(this);
+  }
+
+  componentDidMount() {
+    AOS.init({
+      duration: 1000
+    });
   }
 
   toggleAttending() {
@@ -94,7 +102,7 @@ class Events extends React.Component {
       </div>;
     const eventsOnly = eventDate &&
           <div className="container">
-          <div className="event card">
+          <div className="event card" data-aos="fade-down" data-aos-offset="0">
             { memoryOrEvent }
             { eventDateElement }
             { cardHeader }

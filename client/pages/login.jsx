@@ -1,6 +1,8 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
 import Redirect from '../components/redirect';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -13,6 +15,12 @@ export default class Login extends React.Component {
     this.passwordChange = this.passwordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.demoSignIn = this.demoSignIn.bind(this);
+  }
+
+  componentDidMount() {
+    AOS.init({
+      duration: 1000
+    });
   }
 
   usernameChange() {
@@ -78,9 +86,10 @@ function StartRegistration(props) {
   return (
     <>
     <div className="row login-title">
-      <h1>Social Lite</h1>
+      <h1 data-aos="zoom-in" data-aos-offset="0">
+Social Lite</h1>
     </div>
-    <div className="log">
+    <div className="log" data-aos="zoom-in-up">
       <form onSubmit={props.handleSubmit}>
           <div className="login">
               <div className="row justify-space">

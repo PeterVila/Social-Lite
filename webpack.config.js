@@ -12,18 +12,27 @@ module.exports = {
     path: serverPublicPath
   },
   module: {
-    rules: [{
-      test: /\.jsx?$/,
-      include: clientPath,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          plugins: [
-            '@babel/plugin-transform-react-jsx'
-          ]
+    rules: [
+      {
+        test: /\.jsx?$/,
+        include: clientPath,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: [
+              '@babel/plugin-transform-react-jsx'
+            ]
+          }
         }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       }
-    }]
+    ]
   },
   devtool: 'source-map',
   devServer: {

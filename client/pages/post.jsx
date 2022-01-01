@@ -2,6 +2,8 @@ import React from 'react';
 import Resizer from 'react-image-file-resizer';
 import Redirect from '../components/redirect';
 import AppContext from '../lib/app-context';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -14,7 +16,8 @@ export default class App extends React.Component {
       eventDate: '',
       endDate: '',
       file: null,
-      img: null
+      img: null,
+      finished: false
     };
     this.fileInputRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,6 +29,12 @@ export default class App extends React.Component {
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleEndTime = this.handleEndTime.bind(this);
     this.fileChangedHandler = this.fileChangedHandler.bind(this);
+  }
+
+  componentDidMount() {
+    AOS.init({
+      duration: 1000
+    });
   }
 
   toggleMemory() {
@@ -131,7 +140,8 @@ export default class App extends React.Component {
           eventDate: '',
           postTitle: '',
           endDate: '',
-          img: null
+          img: null,
+          finished: true
         });
       })
       .catch(err => {
@@ -141,6 +151,7 @@ export default class App extends React.Component {
 
   render() {
     if (!this.context.user) return <Redirect to="login" />;
+    if (this.state.finished) return <Redirect to="" />
     const eventClicked = this.state.postType === 'event' ? 'event-button clicked' : 'event-button white-button';
     const memoryClicked = this.state.postType === 'memory' ? 'memory-button clicked' : 'memory-button white-button';
     const isUploaded = !this.state.file
@@ -150,7 +161,7 @@ export default class App extends React.Component {
       ? <img className="image-preview" src={this.state.img}/>
       : null;
     return (
-      <div className="container">
+      <div className="container" data-aos="zoom-out-up">
         <form className="memory-form" onSubmit={this.handleSubmit}>
           <div className="image-upload">
             { isUploaded }

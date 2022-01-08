@@ -161,8 +161,8 @@ export default class App extends React.Component {
       ? <img className="image-preview" src={this.state.img}/>
       : null;
     return (
-      <div className="container" data-aos="zoom-in"
-      data-aos-duration="500">
+      <div className="container" data-aos="zoom-out-up"
+        data-aos-duration="500">
         <form className="memory-form" onSubmit={this.handleSubmit}>
           <div className="image-upload">
             { isUploaded }

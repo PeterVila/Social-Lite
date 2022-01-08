@@ -79,10 +79,16 @@ class Post extends React.Component {
             });
           }
           if (data.userId) {
-            this.setState({
-              eventAttendees: this.state.eventAttendees.concat(data),
-              isAttending: true
-            });
+            const attendees = [];
+            for (let i = 0; i < this.state.eventAttendees.length; i++) {
+              attendees.push(this.state.eventAttendees[i].userId);
+            }
+            if (!attendees.includes(data.userId)) {
+              this.setState({
+                eventAttendees: this.state.eventAttendees.concat(data),
+                isAttending: true
+              });
+            }
           }
         })
         .catch(error => {

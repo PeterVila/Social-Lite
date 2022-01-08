@@ -81,7 +81,8 @@ export default class Chat extends React.Component {
     if (!this.context.user) return <Redirect to="login" />;
 
     return (
-        <div className="chat-window" data-aos="zoom-out-up">
+        <div className="chat-window" data-aos="zoom-out-up"
+        data-aos-duration="500">
             <div className="chat-header">
                 <p>Social Lite</p>
             </div>

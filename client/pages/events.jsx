@@ -101,8 +101,8 @@ class Events extends React.Component {
         <button onClick={() => this.attendingEvent()}>Attending?</button>
       </div>;
     const eventsOnly = eventDate &&
-          <div className="container">
-          <div className="event card" data-aos="fade-down" data-aos-offset="0">
+          <div className="container" data-aos="fade-down" data-aos-offset="0">
+          <div className="event card">
             { memoryOrEvent }
             { eventDateElement }
             { cardHeader }

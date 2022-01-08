@@ -151,7 +151,7 @@ export default class App extends React.Component {
 
   render() {
     if (!this.context.user) return <Redirect to="login" />;
-    if (this.state.finished) return <Redirect to="" />
+    if (this.state.finished) return <Redirect to="" />;
     const eventClicked = this.state.postType === 'event' ? 'event-button clicked' : 'event-button white-button';
     const memoryClicked = this.state.postType === 'memory' ? 'memory-button clicked' : 'memory-button white-button';
     const isUploaded = !this.state.file
@@ -161,7 +161,8 @@ export default class App extends React.Component {
       ? <img className="image-preview" src={this.state.img}/>
       : null;
     return (
-      <div className="container" data-aos="zoom-out-up">
+      <div className="container" data-aos="zoom-in"
+      data-aos-duration="500">
         <form className="memory-form" onSubmit={this.handleSubmit}>
           <div className="image-upload">
             { isUploaded }

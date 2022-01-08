@@ -60,7 +60,16 @@ export default class Chat extends React.Component {
     });
   }
 
+  scrollToBottom() {
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
   componentDidMount() {
+    this.scrollToBottom();
     this.socket = io.connect();
     this.socket.emit('join_room', 'Public');
     this.socket.on('receive_message', data => {
@@ -98,7 +107,7 @@ export default class Chat extends React.Component {
 
     return (
         <div className="chat-window" data-aos="zoom-out-up"
-        data-aos-duration="500">
+        data-aos-duration="500"  ref={el => { this.el = el}}>
             <div className="chat-header">
                 <p>Social Lite</p>
             </div>
@@ -108,6 +117,8 @@ export default class Chat extends React.Component {
             return (
               <div
                 key={index}
+                data-aos="zoom-out-up"
+                data-aos-duration="200"
                 className="message"
                 id={this.context.user.displayName === messageContent.author ? 'you' : 'other'}
               >

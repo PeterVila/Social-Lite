@@ -68,6 +68,22 @@ export default class Chat extends React.Component {
         messageList: this.state.messageList.concat(data)
       });
     });
+    this.socket.on("getCount", arg1 => {
+      const people = arg1 === 1
+        ? 'You are the only person here :('
+        : `There are currently ${arg1} users here!`;
+      const message = {
+        author: 'Bot',
+        message: people,
+        time: 'Welcome!',
+        room: 'Public',
+        avatar: 'https://c.tenor.com/T4664VfiM0cAAAAC/asistente-robot.gif'
+      };
+      this.setState({
+        messageList: this.state.messageList.concat(message),
+        message: ''
+      });
+    });
     AOS.init({
       duration: 1000
     });

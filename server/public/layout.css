@@ -1,6 +1,20 @@
 * {
   box-sizing: border-box;
   margin: 0 auto;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 11px;
+}
+
+*::-webkit-scrollbar-track {
+  opacity: 0%;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--light-blue);
+  /* box-shadow: 5px 5px 15px 5px rgba(0 0 0 / 35%); */
 }
 
 .hidden {

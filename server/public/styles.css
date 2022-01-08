@@ -5,7 +5,7 @@
   --dark-color-b: #566071;
   --light-blue: #2ec0f5;
   --highlight: #3fcfc1;
-  --default: #fff;
+  --default: #f9f9f9;
 }
 
 body {
@@ -140,10 +140,15 @@ body {
   box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 33%);
 }
 
+button {
+  box-shadow: 1px 1px 2px 1px rgba(3, 36, 85, 0.459);
+}
+
 button:hover {
   cursor: pointer;
   background-color: rgb(8 143 130);
-  box-shadow: inset 1px 1px 18px rgb(65 65 65);
+  box-shadow: inset 1px 1px 18px rgb(65 65 65),
+  1px 1px 2px 1px rgba(3, 36, 85, 0.459);
 }
 
 .attending button {
@@ -220,7 +225,7 @@ button:hover {
   margin-top: 24rem;
   margin-right: 3%;
   color: var(--default);
-  box-shadow: inset 2px 0 10px #000;
+  box-shadow: inset 2px 0 8px #000;
 }
 
 .nav-slider h3 {
@@ -245,6 +250,7 @@ button:hover {
   margin-bottom: 0;
   margin-top: 1.25rem;
   font-size: 2.5rem;
+  text-shadow: 2px 2px #6c6c6c5f;
 }
 
 .card-title {
@@ -266,6 +272,7 @@ button:hover {
 .card .row h3 {
   margin: 0;
   font-size: 1.5rem;
+  text-shadow: 2px 2px #6c6c6c5f;
 }
 
 .card-title h4 {
@@ -284,7 +291,7 @@ button:hover {
 .event-time,
 .event-planning {
   color: var(--default);
-  border: 1px solid var(--default);
+  border: 3px inset rgba(255, 255, 255, 0.2);
   margin: 0;
   align-self: center;
   padding: 0.5rem;
@@ -302,6 +309,7 @@ button:hover {
 
 .event-planning span {
   color: var(--highlight);
+  margin-right: 4px;
 }
 
 footer {
@@ -398,7 +406,7 @@ i:hover {
 }
 
 .nav-slider li:hover {
-  background-color: rgb(4 4 103 / 50%);
+  background-color: rgb(4 4 150 / 50%);
 }
 
 .add-comment {
@@ -442,7 +450,7 @@ i:hover {
 }
 
 .caption {
-  color: rgb(160 146 70);
+  color: rgb(197, 174, 41);
   font-weight: bold;
   font-size: 1.25rem;
   margin-bottom: 0.25rem;
@@ -589,6 +597,7 @@ i:hover {
 
 .chat-window .chat-header p {
   font-size: 1.25rem;
+  font-weight: 600;
   display: block;
   padding: 0 1em 0 2em;
   color: var(--highlight);
@@ -669,6 +678,7 @@ i:hover {
 .chat-window .chat-footer input {
   flex: 85%;
   border: 1px solid var(--dark-color-a);
+  padding-left: 0.5rem;
 }
 
 .chat-window .chat-footer button {
@@ -781,9 +791,9 @@ i:hover {
   height: 200px;
   margin: 8px;
   border-radius: 50%;
-  border: 12px solid var(--highlight);
+  border: 8px solid var(--highlight);
   border-color: var(--highlight) transparent var(--highlight) transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
+  animation: lds-dual-ring 0.6s linear infinite;
 }
 
 @keyframes lds-dual-ring {
@@ -824,7 +834,7 @@ i:hover {
   justify-content: center;
   display: flex;
   padding: 1rem;
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
   margin-top: 4rem;

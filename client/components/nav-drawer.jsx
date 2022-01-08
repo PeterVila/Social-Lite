@@ -22,6 +22,10 @@ class Navigation extends React.Component {
     const modalBackground = this.state.isClicked ? 'nav-background' : 'no-nav-background';
     const backdrop = this.state.isClicked ? this.handleClick : null;
     const drawerBackground = this.state.isClicked ? 'backdrop' : '';
+    const homePage = this.context.route.path === '' && 'blue';
+    const eventPage = this.context.route.path === 'Events' && 'blue';
+    const postPage = this.context.route.path === 'Post' && 'blue';
+    const chatPage = this.context.route.path === 'Chat' && 'blue';
     return (
       <>
       {this.context.user && (
@@ -30,11 +34,11 @@ class Navigation extends React.Component {
           <div className={`nav-slider ${isClicked}`}>
             <h1>Social Lite</h1>
             <ul>
-              <a href="#"><li onClick={this.handleClick}><h3>Home</h3></li></a>
-              <a href="#Events"><li onClick={this.handleClick}><h3>Events</h3></li></a>
-              <a href="#Post"><li onClick={this.handleClick}><h3>Create a Post</h3></li></a>
-              <a href="#Chat"><li onClick={this.handleClick}><h3>Chat</h3></li></a>
-              <a><li onClick={handleSignOut}><h3>Log Out</h3></li></a>
+              <a href="#"><li onClick={this.handleClick}><h3 className={homePage}>Home</h3></li></a>
+              <a href="#Events"><li onClick={this.handleClick}><h3 className={eventPage}>Events</h3></li></a>
+              <a href="#Post"><li onClick={this.handleClick}><h3 className={postPage}>Create a Post</h3></li></a>
+              <a href="#Chat"><li onClick={this.handleClick}><h3 className={chatPage}>Chat</h3></li></a>
+              <a href="#login"><li onClick={handleSignOut}><h3>Log Out</h3></li></a>
               <h3 className="welcome-user">{`Welcome ${this.context.user.displayName}!`}</h3>
             </ul>
           </div>

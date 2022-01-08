@@ -18,24 +18,28 @@ class AppDrawer extends React.Component {
 
   render() {
     const { handleSignOut } = this.context;
-
+    const homePage = this.context.route.path === '' && 'blue';
+    const eventPage = this.context.route.path === 'Events' && 'blue';
+    const postPage = this.context.route.path === 'Post' && 'blue';
+    const chatPage = this.context.route.path === 'Chat' && 'blue';
+    const loginPage = this.context.route.path === 'login' && 'blue';
     return (
     <footer>
       <div className="row justify-center">
         <div className="icon text-center">
-          <a href="#"><i className="fas fa-home"></i></a>
+          <a href="#"><i className={`${homePage} fas fa-home`}></i></a>
         </div>
         <div className="icon text-center">
-          <a href="#Events"><i className="fas fa-calendar-week"></i></a>
+          <a href="#Events"><i className={`${eventPage} fas fa-calendar-week`}></i></a>
         </div>
         <div className="post-icon text-center">
-          <a href="#Post"><i className="fas fa-camera"></i></a>
+          <a href="#Post"><i className={`${postPage} fas fa-camera`}></i></a>
         </div>
         <div className="icon text-center">
-          <a href="#Chat"><i className="fas fa-comment"></i></a>
+          <a href="#Chat"><i className={`${chatPage} fas fa-comment`}></i></a>
         </div>
         <div className="icon text-center">
-          <a><i onClick={handleSignOut} className="fas fa-sign-out-alt"></i></a>
+          <a><i onClick={handleSignOut} className={`${loginPage} fas fa-sign-out-alt`}></i></a>
         </div>
       </div>
     </footer>

@@ -58,7 +58,16 @@ class Post extends React.Component {
   }
 
   attendingEvent() {
-    if (!this.state.isAttending) {
+    if (this.state.eventAttendees === null) {
+      this.setState({
+        eventAttendees: []
+      });
+    }
+    const attendees = [];
+    for (let i = 0; i < this.state.eventAttendees.length; i++) {
+      attendees.push(this.state.eventAttendees[i].userId);
+    }
+    if (!attendees.includes(this.context.user.userId)) {
       const obj = {
         userId: this.context.user.userId,
         postId: this.state.postId,
@@ -79,10 +88,6 @@ class Post extends React.Component {
             });
           }
           if (data.userId) {
-            const attendees = [];
-            for (let i = 0; i < this.state.eventAttendees.length; i++) {
-              attendees.push(this.state.eventAttendees[i].userId);
-            }
             if (!attendees.includes(data.userId)) {
               this.setState({
                 eventAttendees: this.state.eventAttendees.concat(data),
@@ -94,6 +99,10 @@ class Post extends React.Component {
         .catch(error => {
           console.error('Error:', error);
         });
+    } else {
+      this.setState({
+        alreadyClicked: !this.state.alreadyClicked
+      });
     }
   }
 
@@ -170,6 +179,14 @@ class Post extends React.Component {
       <div className="attending row">
         <button onClick={() => this.attendingEvent()}>Attending?</button>
       </div>;
+
+    const notification = this.state.alreadyClicked &&
+    <section
+      className="modal-alert animate"
+      variant="success"
+    >
+      Already Attending
+    </section>;
     return (
     <>
     {this.state.isCommenting && <Modal postId={this.state.postId} addComment={this.addComment} toggleComment={this.toggleComment} isCommenting={this.state.isCommenting} cancelComment={this.cancelComment}/>}
@@ -184,6 +201,7 @@ class Post extends React.Component {
                 <p className="caption">{caption}</p>
                 { messages }
                 {eventAttendeesList}
+                {notification}
             </div>
         </div>
         {eventAttendingButton}

@@ -815,3 +815,37 @@ i:hover {
   font-weight: bold;
   margin-top: 3rem;
 }
+
+.modal-alert {
+  background-color: #2ec0f5;
+  color: white;
+  border-radius: 5rem;
+  width: 50%;
+  justify-content: center;
+  display: flex;
+  padding: 1rem;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin-top: 4rem;
+}
+
+@keyframes fade-animation {
+  0% {
+    opacity: 100%;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0%;
+    visibility: hidden;
+  }
+}
+
+.animate {
+  animation: fade-animation 1s ease-in 0.2s forwards;
+}
+
+.blue {
+  color: aqua;
+}

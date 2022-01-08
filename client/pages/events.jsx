@@ -10,7 +10,8 @@ class Events extends React.Component {
     this.state = {
       postId: this.props.post.postId,
       isAttending: false,
-      eventAttendees: this.props.post.eventAttendees
+      eventAttendees: this.props.post.eventAttendees,
+      alreadyClicked: false
     };
     this.toggleAttending = this.toggleAttending.bind(this);
     this.attendingEvent = this.attendingEvent.bind(this);
@@ -29,7 +30,16 @@ class Events extends React.Component {
   }
 
   attendingEvent() {
-    if (!this.state.isAttending) {
+    if (this.state.eventAttendees === null) {
+      this.setState({
+        eventAttendees: []
+      });
+    }
+    const attendees = [];
+    for (let i = 0; i < this.state.eventAttendees.length; i++) {
+      attendees.push(this.state.eventAttendees[i].userId);
+    }
+    if (!attendees.includes(this.context.user.userId)) {
       const obj = {
         userId: this.context.user.userId,
         postId: this.state.postId,
@@ -44,16 +54,7 @@ class Events extends React.Component {
       })
         .then(response => response.json())
         .then(data => {
-          if (this.state.eventAttendees === null) {
-            this.setState({
-              eventAttendees: null
-            });
-          }
           if (data.userId) {
-            const attendees = [];
-            for (let i = 0; i < this.state.eventAttendees.length; i++) {
-              attendees.push(this.state.eventAttendees[i].userId);
-            }
             if (!attendees.includes(data.userId)) {
               this.setState({
                 eventAttendees: this.state.eventAttendees.concat(data),
@@ -65,6 +66,10 @@ class Events extends React.Component {
         .catch(error => {
           console.error('Error:', error);
         });
+    } else {
+      this.setState({
+        alreadyClicked: !this.state.alreadyClicked
+      });
     }
   }
 
@@ -106,6 +111,13 @@ class Events extends React.Component {
       <div className="attending row">
         <button onClick={() => this.attendingEvent()}>Attending?</button>
       </div>;
+    const notification = this.state.alreadyClicked &&
+      <section
+        className="modal-alert animate"
+        variant="success"
+      >
+        Already Attending
+      </section>;
     const eventsOnly = eventDate &&
           <div className="container" data-aos="fade-down" data-aos-offset="0">
           <div className="event card">
@@ -116,6 +128,7 @@ class Events extends React.Component {
             <div className="event-caption">
                 <p className="caption">{caption}</p>
                     {eventAttendeesList}
+                    {notification}
             </div>
         </div>
         {eventAttendingButton}

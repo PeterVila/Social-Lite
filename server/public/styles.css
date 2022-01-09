@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 
+
 :root {
   --dark-color-a: #121d30;
   --dark-color-b: #566071;
@@ -12,6 +13,10 @@ body {
   background-color: var(--dark-color-b);
   font-family: "PT Sans", sans-serif;
   margin-bottom: 8rem;
+}
+
+button {
+  box-shadow: 1px 1px 2px 1px rgba(3, 36, 85, 0.459);
 }
 
 .memory-form {
@@ -83,6 +88,7 @@ body {
 
 .form-submit button {
   margin-bottom: 10rem;
+  color: var(--dark-color-a);
 }
 
 .location-form h3,
@@ -138,10 +144,6 @@ body {
   color: white;
   font-weight: bold;
   box-shadow: 9px 9px 20px 1px rgb(0 0 0 / 33%);
-}
-
-button {
-  box-shadow: 1px 1px 2px 1px rgba(3, 36, 85, 0.459);
 }
 
 button:hover {

@@ -1,10 +1,10 @@
 import React from 'react';
-import io from 'socket.io-client';
 import { format } from 'date-fns';
 import Redirect from '../components/redirect';
 import AppContext from '../lib/app-context';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import io from 'socket.io-client';
 
 export default class Chat extends React.Component {
   constructor(props) {
@@ -16,6 +16,38 @@ export default class Chat extends React.Component {
     this.setMessage = this.setMessage.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.enterSubmit = this.enterSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.socket = io.connect();
+    this.socket.emit('join_room', 'Public');
+
+    this.socket.on('receive_message', data => {
+      this.setState({
+        messageList: this.state.messageList.concat(data)
+      });
+    });
+
+    this.socket.on('getCount', arg1 => {
+      const people = arg1 === 1
+        ? 'You are the only person here :('
+        : `There are currently ${arg1} users here!`;
+      const message = {
+        author: 'Bot',
+        message: people,
+        time: 'Welcome!',
+        room: 'Public',
+        avatar: 'https://c.tenor.com/T4664VfiM0cAAAAC/asistente-robot.gif'
+      };
+      this.setState({
+        messageList: this.state.messageList.concat(message),
+        message: ''
+      });
+    });
+    AOS.init({
+      duration: 1000
+    });
+    this.scrollToBottom();
   }
 
   setMessage(event) {
@@ -68,36 +100,6 @@ export default class Chat extends React.Component {
     this.scrollToBottom();
   }
 
-  componentDidMount() {
-    this.scrollToBottom();
-    this.socket = io.connect();
-    this.socket.emit('join_room', 'Public');
-    this.socket.on('receive_message', data => {
-      this.setState({
-        messageList: this.state.messageList.concat(data)
-      });
-    });
-    this.socket.on("getCount", arg1 => {
-      const people = arg1 === 1
-        ? 'You are the only person here :('
-        : `There are currently ${arg1} users here!`;
-      const message = {
-        author: 'Bot',
-        message: people,
-        time: 'Welcome!',
-        room: 'Public',
-        avatar: 'https://c.tenor.com/T4664VfiM0cAAAAC/asistente-robot.gif'
-      };
-      this.setState({
-        messageList: this.state.messageList.concat(message),
-        message: ''
-      });
-    });
-    AOS.init({
-      duration: 1000
-    });
-  }
-
   componentWillUnmount() {
     this.socket.disconnect();
   }
@@ -107,7 +109,7 @@ export default class Chat extends React.Component {
 
     return (
         <div className="chat-window" data-aos="zoom-out-up"
-        data-aos-duration="500"  ref={el => { this.el = el}}>
+        data-aos-duration="500" ref={el => { this.el = el; }}>
             <div className="chat-header">
                 <p>Social Lite</p>
             </div>

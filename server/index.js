@@ -25,9 +25,7 @@ const io = socketio(server);
 
 io.on('connection', socket => {
   clients.push(socket.id);
-
   socket.emit('getCount', clients.length);
-  
   console.log(`User Connected: ${socket.id}`);
   socket.on('join_room', data => {
     socket.join(data);

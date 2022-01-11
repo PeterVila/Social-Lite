@@ -21,12 +21,14 @@ export default class Chat extends React.Component {
 
   componentDidMount() {
     this.socket = io.connect();
-    this.socket.emit('join_room', {
-      message: `${this.context.user.displayName} has just joined the room!`,
-      time: format(new Date(), 'hh:mmb'),
-      room: 'Public',
-      avatar: this.context.user.avatarUrl
-    });
+    if (this.context.user) {
+      this.socket.emit('join_room', {
+        message: `${this.context.user.displayName} has just joined the room!`,
+        time: format(new Date(), 'hh:mmb'),
+        room: 'Public',
+        avatar: this.context.user.avatarUrl
+      });
+    }
     this.socket.on('join_notification', data => {
       this.setState({
         messageList: this.state.messageList.concat(data)

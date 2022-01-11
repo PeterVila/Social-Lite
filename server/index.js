@@ -14,23 +14,22 @@ const db = new pg.Pool({
     rejectUnauthorized: false
   }
 });
-
 const app = express();
 const http = require('http');
+
+//Initialize Socket.io mod passing HTTP 
 const socketio = require('socket.io');
 const server = http.createServer(app);
 const io = socketio(server);
 
-  const clients = [];
-
+const clients = [];
 io.on('connection', socket => {
-  clients.push(socket.id);
-  socket.emit('getCount', clients.length);
-  console.log(`User Connected: ${socket.id}`);
+  clients.push(socket.id); 
+  socket.emit('getCount', clients.length); 
   socket.on('join_room', data => {
-    socket.join(data);
+    socket.join(data.room);
     console.log(`User with ID: ${socket.id} joined the chatroom!`);
-    console.log(clients);
+    socket.to(data.room).emit('join_notification', data);
   });
   socket.on('send_message', data => {
     console.log(data);
@@ -39,9 +38,9 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     console.log(`User Disconnected: ${socket.id}`);
     clients.splice(clients.indexOf(socket.id), 1);
-    console.log(clients);
   });
 });
+
 app.use(staticMiddleware);
 const jsonMiddleware = express.json();
 app.use(jsonMiddleware);

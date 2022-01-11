@@ -4,6 +4,7 @@ import Redirect from '../components/redirect';
 import AppContext from '../lib/app-context';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+
 import io from 'socket.io-client';
 
 export default class Chat extends React.Component {
@@ -20,8 +21,17 @@ export default class Chat extends React.Component {
 
   componentDidMount() {
     this.socket = io.connect();
-    this.socket.emit('join_room', 'Public');
-
+    this.socket.emit('join_room', {
+      message: `${this.context.user.displayName} has just joined the room!`,
+      time: format(new Date(), 'hh:mmb'),
+      room: 'Public',
+      avatar: this.context.user.avatarUrl
+    });
+    this.socket.on('join_notification', data => {
+      this.setState({
+        messageList: this.state.messageList.concat(data)
+      });
+    });
     this.socket.on('receive_message', data => {
       this.setState({
         messageList: this.state.messageList.concat(data)
@@ -50,6 +60,23 @@ export default class Chat extends React.Component {
     this.scrollToBottom();
   }
 
+  sendMessage() {
+    const comment = new Date();
+    const sentTime = format(comment, 'hh:mmb');
+    const messageData = {
+      author: this.context.user.displayName,
+      message: this.state.message,
+      time: sentTime,
+      room: 'Public',
+      avatar: this.context.user.avatarUrl
+    };
+    this.socket.emit('send_message', messageData);
+    this.setState({
+      messageList: this.state.messageList.concat(messageData),
+      message: ''
+    });
+  }
+
   setMessage(event) {
     this.setState({
       message: event.target.value
@@ -73,23 +100,6 @@ export default class Chat extends React.Component {
         message: ''
       });
     }
-  }
-
-  sendMessage() {
-    const comment = new Date();
-    const sentTime = format(comment, 'hh:mmb');
-    const messageData = {
-      author: this.context.user.displayName,
-      message: this.state.message,
-      time: sentTime,
-      room: 'Public',
-      avatar: this.context.user.avatarUrl
-    };
-    this.socket.emit('send_message', messageData);
-    this.setState({
-      messageList: this.state.messageList.concat(messageData),
-      message: ''
-    });
   }
 
   scrollToBottom() {

@@ -765,7 +765,8 @@ i:hover {
   height: 60px;
   object-fit: cover;
   border-radius: 50%;
-  top: 5px;
+  top: 8px;
+  border: 2px solid rgb(197, 174, 41);
 }
 
 .welcome-user {

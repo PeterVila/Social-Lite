@@ -109,7 +109,7 @@ Social Lite</h1>
             </div>
         </div>
       </form>
-      <button className="demo-login" onClick={props.demoSignIn}>Demo</button>
+      <button data-testid="demoButton" className="demo-login" onClick={props.demoSignIn}>Demo</button>
     </div>
     </>
   );

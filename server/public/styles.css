@@ -734,6 +734,7 @@ i:hover {
   height: 75px;
   border-radius: 50%;
   margin: 0.5rem;
+  object-fit: cover;
 }
 
 .comment-img {
